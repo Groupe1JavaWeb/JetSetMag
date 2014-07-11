@@ -8,14 +8,15 @@ class UserController {
 
 	def checkUser() {
 		if(!session.user) {
-			// i.e. user not logged in
 			redirect(controller:'user',action:'login')
+			//redirect(controller:'home',action:'index')
+			//redirect(controller:'user',action:'index')
 			return false
 		}
 	}
 	
-    def index() {
-		render view : 'index'
+    def index() { // page profil perso
+		render view : 'index' 
 	}
 	
 	def login() {
@@ -23,24 +24,26 @@ class UserController {
 			if(request.post){
 				def user = User.findWhere(username:params['login'],secret:params['password'])
 				session.user = user
-				if(user && user.active)
+				if(user && user.active){
+					flash.message = "Welcome back !"
+					//redirect(controller:'home',action:'index')
 					render view : 'index'
-				else
+				}else{
 					render view : 'signin'
+				}
 			}else{
 				render view : 'signin'
 			}
 		}else{
-			render view : 'index'
+			redirect(controller:'home',action:'index')
 		}
 	}
 	
 	def logout() {
-		if(session.user) {
-			session.invalidate()
-			redirect(controller:'home',action:'index')
-		}
-		render view : 'index'
+		session.invalidate()
+		redirect(controller:'home',action:'index')
+		flash.success = "A très bientôt !"
+		render view : '/home'
 	}
 
 	def register() {
@@ -52,12 +55,13 @@ class UserController {
 					redirect(controller:'home',action:'index')
 				}else{
 					flash.warning = "Erreur lors de l'enregsitrement de votre compte !"
+					redirect(controller:'user',action:'register')
 				}
 			}else{		
 				render view : 'signup'
 			}
 		}else{
-			render view : 'index'
+			render view : '/home'
 		}
 	}
 

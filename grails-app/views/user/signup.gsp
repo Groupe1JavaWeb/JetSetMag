@@ -22,7 +22,8 @@
 	        </a>
 	       	<section class="m-b-lg">
 	           <header class="wrapper text-center">
-	               <strong>Sign up to find interesting thing</strong>
+	               	<strong>Sign up to find interesting thing</strong>
+	               	<br />
 					<g:if test="${flash.error}">
 						<div class="alert alert-error" style="display: block">${flash.error}</div>
 					</g:if>
@@ -38,6 +39,7 @@
 					<g:if test="${flash.warning}">
 						<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
 					</g:if>
+					<br />
 				</header>
            		<form action="register" method="POST">
                    	<div class="form-group">

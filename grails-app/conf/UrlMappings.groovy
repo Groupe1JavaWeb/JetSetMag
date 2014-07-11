@@ -9,6 +9,11 @@ class UrlMappings {
 
         "/" ( controller:'Home', action:'index' )
 		
+		"/home" ( controller:'Home', action:'index' )
+		"/login" ( controller:'User', action:'login' )
+		"/logout" ( controller:'User', action:'logout' )
+		"/register" ( controller:'User', action:'register' )
+		
         "500"(view:'/error')
 		"501"(view:'/error')
 		"502"(view:'/error')
