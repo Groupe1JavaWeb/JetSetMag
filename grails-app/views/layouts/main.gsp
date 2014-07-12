@@ -67,7 +67,7 @@
 <section class="panel bg-white">
 <div class="panel-heading b-light bg-light">
 <strong>You have 
-<span class="count">2</span> notifications
+<span class="count">2</span> Notifications
 </strong>
 </div>
 <div class="list-group list-group-alt">
