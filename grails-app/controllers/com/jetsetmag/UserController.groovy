@@ -16,18 +16,19 @@ class UserController {
 	}
 	
     def index() { // page profil perso
-		render view : 'index' 
+		render view : 'index'
+		//render view : '/home'
 	}
 	
 	def login() {
 		if(!session.user) {
 			if(request.post){
 				def user = User.findWhere(username:params['login'],secret:params['password'])
-				session.user = user
+				//if(user.is(User) && user.active==1){
 				if(user && user.active){
+					session.user = user
 					flash.message = "Welcome back !"
-					//redirect(controller:'home',action:'index')
-					render view : 'index'
+					redirect(controller:'home',action:'index')
 				}else{
 					render view : 'signin'
 				}

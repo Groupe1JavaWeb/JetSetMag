@@ -25,7 +25,7 @@
 </a>
 <a href="/JetSetMag" class="navbar-brand text-lt">
 <i class="icon-earphones"></i>
-<img src="images/logo.png" alt="." class="hide">
+<img src="${resource(dir:'images',file:'logo.png')}" alt="." class="hide">
 <span class="hidden-nav-xs m-l-sm">Jet7 MaG</span>
 </a>
 <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
@@ -73,7 +73,7 @@
 <div class="list-group list-group-alt">
 <a href="/JetSetMag" class="media list-group-item">
 <span class="pull-left thumb-sm">
-<img src="images/a0.png" alt="..." class="img-circle">
+<img src="${resource(dir:'images',file:'a0.png')}" alt="..." class="img-circle">
 </span>
 <span class="media-body block m-b-none"> Use awesome animate.css
 <br>
@@ -99,7 +99,7 @@
 <li class="dropdown">
 <a href="/JetSetMag" class="dropdown-toggle bg clear" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-<img src="images/a0.png" alt="...">
+<img src="${resource(dir:'images',file:'a0.png')}" alt="...">
 </span> John.Smith 
 <b class="caret"></b>
 </a>
@@ -192,7 +192,7 @@
 <div class="dropdown dropup wrapper-sm clearfix">
 <a href="/JetSetMag" class="dropdown-toggle" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-left m-l-xs">
-<img src="images/a3.png" class="dker" alt="...">
+<img src="${resource(dir:'images',file:'a3.png')}" class="dker" alt="...">
 <i class="on b-black"></i>
 </span>
 <span class="hidden-nav-xs clear">
@@ -376,7 +376,7 @@
 <ul class="list-group no-bg no-borders auto m-t-n-xxs">
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a1.png" alt="..." class="img-circle">
+<img src="${resource(dir:'images',file:'a1.png')}" alt="..." class="img-circle">
 <i class="on b-light right sm"></i>
 </span>
 <div class="clear">
@@ -388,7 +388,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a2.png" alt="...">
+<img src="${resource(dir:'images',file:'a2.png')}" alt="...">
 <i class="on b-light right sm"></i>
 </span>
 <div class="clear">
@@ -400,7 +400,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a3.png" alt="...">
+<img src="${resource(dir:'images',file:'a3.png')}" alt="...">
 <i class="busy b-light right sm"></i>
 </span>
 <div class="clear">
@@ -412,7 +412,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a4.png" alt="...">
+<img src="${resource(dir:'images',file:'a4.png')}" alt="...">
 <i class="away b-light right sm"></i>
 </span>
 <div class="clear">
@@ -424,7 +424,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a5.png" alt="..." class="img-circle">
+<img src="${resource(dir:'images',file:'a5.png')}" alt="..." class="img-circle">
 <i class="on b-light right sm"></i>
 </span>
 <div class="clear">
@@ -436,7 +436,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a6.png" alt="...">
+<img src="${resource(dir:'images',file:'a6.png')}" alt="...">
 <i class="on b-light right sm"></i>
 </span>
 <div class="clear">
@@ -448,7 +448,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a7.png" alt="...">
+<img src="${resource(dir:'images',file:'a7.png')}" alt="...">
 <i class="busy b-light right sm"></i>
 </span>
 <div class="clear">
@@ -460,7 +460,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a8.png" alt="...">
+<img src="${resource(dir:'images',file:'a8.png')}" alt="...">
 <i class="away b-light right sm"></i>
 </span>
 <div class="clear">
@@ -472,7 +472,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a9.png" alt="..." class="img-circle">
+<img src="${resource(dir:'images',file:'a9.png')}" alt="..." class="img-circle">
 <i class="on b-light right sm"></i>
 </span>
 <div class="clear">
@@ -484,7 +484,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a1.png" alt="...">
+<img src="${resource(dir:'images',file:'a1.png')}" alt="...">
 <i class="on b-light right sm"></i>
 </span>
 <div class="clear">
@@ -496,7 +496,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a2.png" alt="...">
+<img src="${resource(dir:'images',file:'a2.png')}" alt="...">
 <i class="busy b-light right sm"></i>
 </span>
 <div class="clear">
@@ -508,7 +508,7 @@
 </li>
 <li class="list-group-item">
 <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="images/a3.png" alt="...">
+<img src="${resource(dir:'images',file:'a3.png')}" alt="...">
 <i class="away b-light right sm"></i>
 </span>
 <div class="clear">
