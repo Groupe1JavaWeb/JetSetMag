@@ -99,8 +99,8 @@
 <li class="dropdown">
 <a href="/JetSetMag" class="dropdown-toggle bg clear" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-<img src="${resource(dir:'images',file:'a0.png')}" alt="...">
-</span> John.Smith 
+<avatar:gravatar email="${session.user.email}" />
+</span> ${session.user.lastName} ${session.user.firstName}
 <b class="caret"></b>
 </a>
 <ul class="dropdown-menu animated fadeInRight">
@@ -109,7 +109,7 @@
 <a href="/JetSetMag">Settings</a>
 </li>
 <li>
-<a href="profile.html">Profile</a>
+<a href="/JetSetMag/user/index">Profile</a>
 </li>
 <li>
 <a href="/JetSetMag">
@@ -121,7 +121,7 @@
 </li>
 <li class="divider"></li>
 <li>
-<a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+<a href="/JetSetMag/user/logout" data-toggle="ajaxModal" >Logout</a>
 </li>
 </ul>
 </li>
