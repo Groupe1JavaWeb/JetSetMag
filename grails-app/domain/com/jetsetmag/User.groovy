@@ -1,6 +1,7 @@
 package com.jetsetmag
 
 class User {
+	static searchable = true
 	Integer id
 	String username
 	String secret
