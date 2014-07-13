@@ -17,9 +17,9 @@
 <body class="bg-info">
 	<section id="content" class="m-t-lg wrapper-md animated fadeInDown">
 	    <div class="container aside-xl">
-	        <a class="navbar-brand block" href="index.html">
-	            <span class="h1 font-bold">Musik</span>
-	        </a>
+       		<g:link controller="home" action="index" class="navbar-brand block">
+           		<span class="h1 font-bold">Jet7 Magazine</span>
+       		</g:link>
 	       	<section class="m-b-lg">
 	           <header class="wrapper text-center">
 	               	<strong>Sign up to find interesting thing</strong>
@@ -41,7 +41,7 @@
 					</g:if>
 					<br />
 				</header>
-           		<form action="register" method="POST">
+           		<form action="regsiter" method="POST" >
                    	<div class="form-group">
                        	<input type="text" name="lastn" placeholder="Last Name" class="form-control rounded input-lg text-center no-border" required >
                    	</div>
@@ -65,7 +65,7 @@
                     <p class="text-muted text-center">
                         <small>Already have an account?</small>
                     </p>
-                    <a href="login" class="btn btn-lg btn-info btn-block btn-rounded">Sign in</a>
+                    <g:link controller="home" action="login" class="btn btn-lg btn-info btn-block btn-rounded">Sign in</g:link>
 				</form>
 			</section>
 		</div>

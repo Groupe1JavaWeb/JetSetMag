@@ -17,9 +17,9 @@
 <body class="bg-info">
     <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
         <div class="container aside-xl">
-       		<a class="navbar-brand block" href="index.html">
+       		<g:link controller="home" action="index" class="navbar-brand block">
            		<span class="h1 font-bold">Jet7 Magazine</span>
-       		</a>
+       		</g:link>
        		<section class="m-b-lg">
            		<header class="wrapper text-center">
                		<strong>Sign in to get in touch</strong>
@@ -39,7 +39,7 @@
 						<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
 					</g:if>
            		</header>
-           		<form action="login" method="POST">
+           		<form action="login" method="POST" >
                		<div class="form-group">
                    		<input type="text" name="login" placeholder="login" class="form-control rounded input-lg text-center no-border" required >
                    	</div>
@@ -54,7 +54,7 @@
                 	<p class="text-muted text-center">
                 		<small>Do not have an account?</small>
               		</p>
-      				<a href="register" class="btn btn-lg btn-info btn-block rounded">Create an account</a>
+      				<g:link controller="user" action="register" class="btn btn-lg btn-info btn-block rounded">Create an account</g:link>
            		</form>
 			</section>
 		</div>

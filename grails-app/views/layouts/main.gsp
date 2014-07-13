@@ -109,7 +109,7 @@
 <a href="/JetSetMag">Settings</a>
 </li>
 <li>
-<a href="/JetSetMag/user/index">Profile</a>
+<g:link controller="user" action="index" >Profile</g:link>
 </li>
 <li>
 <a href="/JetSetMag">
@@ -121,7 +121,7 @@
 </li>
 <li class="divider"></li>
 <li>
-<a href="/JetSetMag/user/logout" data-toggle="ajaxModal" >Logout</a>
+<g:link controller="user" action="logout" data-toggle="ajaxModal" >Logout</g:link>
 </li>
 </ul>
 </li>

@@ -11,7 +11,8 @@ class User {
 	Date modified
 	Date lastConnection
 	boolean active
-	Integer status
+	Integer status	
+	static belongsTo = RoleUser	
     static constraints = {
 		id generator: 'identity', column: 'id'
 		username size: 5..15, blank: false, nullable: false, unique: true
