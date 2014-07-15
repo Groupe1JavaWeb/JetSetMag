@@ -21,7 +21,7 @@
 		<div class="row m-n">
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="text-center m-b-lg">
-					<h1 class="h text-white animated fadeInDownBig">404</h1>
+					<h1 class="h text-white animated fadeInDownBig">Error</h1>
 					<hr />
 					<g:if env="development">
 						<g:renderException exception="${exception}" />
@@ -56,7 +56,9 @@
 		</div> 
 	</footer> 
 	<!-- / footer -->
-	<!-- Bootstrap --> 
+	<!-- Bootstrap -->
 	<!-- App -->
+	<script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
+	<script type="text/javascript" src="${resource(dir:'js',file:'app.plugin.js')}"></script>
 	</body>
 </html>

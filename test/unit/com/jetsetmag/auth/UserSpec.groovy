@@ -1,4 +1,6 @@
-package com.jetsetmag
+package com.jetsetmag.auth
+
+import com.jetsetmag.auth.User;
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

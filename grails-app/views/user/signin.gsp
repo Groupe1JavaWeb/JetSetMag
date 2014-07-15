@@ -70,12 +70,9 @@
         </div>
     </footer>
     <!-- / footer -->
-<!-- Bootstrap -->
-<!-- App -->
+	<!-- Bootstrap -->
+	<!-- App -->
         <script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js',file:'app.plugin.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jPlayer',file:'jquery.jplayer.min.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jPlayer/add-on',file:'jplayer.playlist.min.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jPlayer',file:'demo.js')}"></script>
     </body>
 </html>

@@ -7,7 +7,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-/*grails.project.fork = [
+grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
 
@@ -19,7 +19,7 @@ grails.project.source.level = 1.6
     war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the Console UI JVM
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
-]*/
+]
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
@@ -54,6 +54,7 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
 
         compile "org.springframework:spring-orm:$springVersion"
+		
     }
 
     plugins {
@@ -69,6 +70,7 @@ grails.project.dependency.resolution = {
 		compile ":avatar:0.6.3"
 		compile ":elasticsearch:0.0.3.1"
 		compile ":mongodb:3.0.1"
+		compile ':spring-security-core:2.0-RC4' // securité de l'application <==> (formerly Acegi Security)
 		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.3" // or ":hibernate:3.6.10.15"
@@ -76,6 +78,7 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.11.1"
 		
 		runtime ':elasticsearch:0.0.3.1'
+		
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.7.4"

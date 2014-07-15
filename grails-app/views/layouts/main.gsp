@@ -5,11 +5,10 @@
 <title><g:layoutTitle default="Jet7 Magazine | Votre Jet à la une" /></title>
 <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	<link rel="stylesheet" href="${resource(dir:'js/jPlayer',file:'jplayer.flat.css')}" />
+	<link rel="stylesheet" href="${resource(dir:'js/jPlayer',file:'jplayer.flat.css')}" type="text/css" />
 	<link rel="stylesheet" href="${resource(dir:'css',file:'app.v1.css')}" />
-	<link rel="stylesheet" href="${resource(dir:'js/datatables',file:'datatables.css')}" />
 	<link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-<g:layoutHead />	
+	<g:layoutHead />	
     <!--[if lt IE 9]>
 		<script src="${resource(dir:'js/ie',file:'html5shiv.js')}"></script>
 		<script src="${resource(dir:'js/ie',file:'respond.min.js')}"></script>
@@ -52,9 +51,6 @@
 </div>
 </div>
 </form>
-
-
-
 <div class="navbar-right ">
 <g:if test="${session.user}">
 <ul class="nav navbar-nav m-n hidden-xs nav-user user">
@@ -117,11 +113,12 @@
 </a>
 </li>
 <li>
-<a href="docs.html">Help</a>
+<a href="/JetSetMag">Help</a>
 </li>
 <li class="divider"></li>
 <li>
-<g:link controller="user" action="logout" data-toggle="ajaxModal" >Logout</g:link>
+<!--<g:link controller="user" action="logout" data-toggle="ajaxModal" >Logout</g:link>--><!--  nice loading with ajax -->
+<g:link controller="user" action="logout" >Logout</g:link>
 </li>
 </ul>
 </li>
@@ -129,17 +126,14 @@
 </g:if>
 <g:else>
 <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-	<li class="hidden-xs"><g:link controller="user" action="login"><i class="fa fa-sign-in"></i> Sign In</g:link></li>
-	<li class="hidden-xs"><g:link controller="user"  action="register"><i class="fa fa-asterisk"></i> Sign Up</g:link></li>
+	<li class="hidden-xs"><g:link controller="user" action="login" ><i class="fa fa-sign-in"></i> Sign In</g:link></li>
+	<li class="hidden-xs"><g:link controller="user"  action="register" ><i class="fa fa-asterisk"></i> Sign Up</g:link></li>
 </ul>
 </g:else>
 </div>
-
-
 </header>
 <section>
 <section class="hbox stretch">
-<!-- .aside -->
 <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
 <section class="vbox">
 <section class="w-f-md scrollable">
@@ -147,36 +141,30 @@
 <!-- nav -->
 <nav class="nav-primary hidden-xs">
 <ul class="nav bg clearfix">
-<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> Discover </li>
+<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> A la 7 </li>
 <li>
 <a href="/JetSetMag">
-<i class="icon-disc icon text-success"></i>
-<span class="font-bold">What's new</span>
+<i class="icon-globe icon text-success"></i>
+<span class="font-bold">7News</span>
 </a>
 </li>
 <li>
-<a href="genres.html">
-<i class="icon-music-tone-alt icon text-info"></i>
-<span class="font-bold">Genres</span>
-</a>
-</li>
-<li>
-<a href="/JetSetMag/Event">
-<i class="icon-drawer icon text-primary-lter"></i>
+<a href="/JetSetMag">
+<i class="icon-book-open icon text-primary-lter"></i>
 <b class="badge bg-primary pull-right">6</b>
-<span class="font-bold">Events</span>
+<span class="font-bold">7Events</span>
 </a>
 </li>
 <li>
-<a href="listen.html">
-<i class="icon-list icon text-info-dker"></i>
-<span class="font-bold">Listen</span>
+<a href="/JetSetMag">
+<i class="icon-music-tone-alt icon text-info"></i>
+<span class="font-bold">7Audio</span>
 </a>
 </li>
 <li>
-<a href="video.html" data-target="#content" data-el="#bjax-el" data-replace="true">
+<a href="/JetSetMag" data-target="#content" data-el="#bjax-el" data-replace="true">
 <i class="icon-social-youtube icon text-primary"></i>
-<span class="font-bold">Video</span>
+<span class="font-bold">7Video</span>
 </a>
 </li>
 <li class="m-b hidden-nav-xs"></li>
@@ -185,19 +173,18 @@
 <!-- / nav -->
 </div>
 </section>
-
 <g:if test="${session.user}">
 <footer class="footer hidden-xs no-padder text-center-nav-xs">
 <div class="bg hidden-xs ">
 <div class="dropdown dropup wrapper-sm clearfix">
 <a href="/JetSetMag" class="dropdown-toggle" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-left m-l-xs">
-<img src="${resource(dir:'images',file:'a3.png')}" class="dker" alt="...">
+<avatar:gravatar email="${session.user.email}" />
 <i class="on b-black"></i>
 </span>
 <span class="hidden-nav-xs clear">
 <span class="block m-l">
-<strong class="font-bold text-lt">John.Smith</strong>
+<strong class="font-bold text-lt"> ${session.user.lastName} ${session.user.firstName}</strong>
 <b class="caret"></b>
 </span>
 <span class="text-muted text-xs block m-l">Art Director</span>
@@ -209,7 +196,7 @@
 <a href="/JetSetMag">Settings</a>
 </li>
 <li>
-<a href="profile.html">Profile</a>
+<a href="/JetSetMag">Profile</a>
 </li>
 <li>
 <a href="/JetSetMag">
@@ -217,11 +204,11 @@
 </a>
 </li>
 <li>
-<a href="docs.html">Help</a>
+<a href="/JetSetMag">Help</a>
 </li>
 <li class="divider"></li>
 <li>
-<a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+<g:link controller="user" action="logout" >Logout</g:link>
 </li>
 </ul>
 </div>
@@ -235,319 +222,36 @@
 <section class="hbox stretch">
 <section>
 <section class="vbox">
-<section class="scrollable padder-lg w-f-md" id="bjax-target">
-	<section class="wrapper">
-	<!-- <div class="m-b">
-	<span class="h3 font-thin">
-	<i class="i i-arrow-left3"></i> Fluid Layout
-	</span>
-	</div>
-	<section class="panel panel-default">			                    
-	</section>-->		                
-	<!--  ICI  -->
+<section class="scrollable padder">
 	<g:if test="${flash.error}">
+		<br />
 		<div class="alert alert-error" style="display: block">${flash.error}</div>
 	</g:if>
 	<g:if test="${flash.danger}">
+		<br />
 		<div class="alert alert-danger" style="display: block">${flash.danger}</div>
 	</g:if>
 	<g:if test="${flash.message}">
+		<br />
 		<div class="alert alert-info" style="display: block">${flash.message}</div>
 	</g:if>
 	<g:if test="${flash.success}">
+		<br />
 		<div class="alert alert-success" style="display: block">${flash.success}</div>
 	</g:if>
 	<g:if test="${flash.warning}">
+		<br />
 		<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
 	</g:if>
-	<br>
-	<g:layoutBody />
-	</section>
-</section>
-<footer class="footer bg-dark">
-<div id="jp_container_N">
-<div class="jp-type-playlist">
-<div id="jplayer_N" class="jp-jplayer hide"></div>
-<div class="jp-gui">
-<div class="jp-video-play hide">
-<a class="jp-video-play-icon">play</a>
-</div>
-<div class="jp-interface">
-<div class="jp-controls">
-<div>
-<a class="jp-previous">
-<i class="icon-control-rewind i-lg"></i>
-</a>
-</div>
-<div>
-<a class="jp-play">
-<i class="icon-control-play i-2x"></i>
-</a>
-<a class="jp-pause hid">
-<i class="icon-control-pause i-2x"></i>
-</a>
-</div>
-<div>
-<a class="jp-next">
-<i class="icon-control-forward i-lg"></i>
-</a>
-</div>
-<div class="hide">
-<a class="jp-stop">
-<i class="fa fa-stop"></i>
-</a>
-</div>
-<div>
-<a class="" data-toggle="dropdown" data-target="#playlist">
-<i class="icon-list"></i>
-</a>
-</div>
-<div class="jp-progress hidden-xs">
-<div class="jp-seek-bar dk">
-<div class="jp-play-bar bg-info"></div>
-<div class="jp-title text-lt">
-<ul>
-<li></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="hidden-xs hidden-sm jp-current-time text-xs text-muted"></div>
-<div class="hidden-xs hidden-sm jp-duration text-xs text-muted"></div>
-<div class="hidden-xs hidden-sm">
-<a class="jp-mute" title="mute">
-<i class="icon-volume-2"></i>
-</a>
-<a class="jp-unmute hid" title="unmute">
-<i class="icon-volume-off"></i>
-</a>
-</div>
-<div class="hidden-xs hidden-sm jp-volume">
-<div class="jp-volume-bar dk">
-<div class="jp-volume-bar-value lter"></div>
-</div>
-</div>
-<div>
-<a class="jp-shuffle" title="shuffle">
-<i class="icon-shuffle text-muted"></i>
-</a>
-<a class="jp-shuffle-off hid" title="shuffle off">
-<i class="icon-shuffle text-lt"></i>
-</a>
-</div>
-<div>
-<a class="jp-repeat" title="repeat">
-<i class="icon-loop text-muted"></i>
-</a>
-<a class="jp-repeat-off hid" title="repeat off">
-<i class="icon-loop text-lt"></i>
-</a>
-</div>
-<div class="hide">
-<a class="jp-full-screen" title="full screen">
-<i class="fa fa-expand"></i>
-</a>
-<a class="jp-restore-screen" title="restore screen">
-<i class="fa fa-compress text-lt"></i>
-</a>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-playlist dropup" id="playlist">
-<ul class="dropdown-menu aside-xl dker">
-<!-- The method Playlist.displayPlaylist() uses this unordered list -->
-<li class="list-group-item"></li>
-</ul>
-</div>
-<div class="jp-no-solution hide">
-<span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your 
-<a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>. 
-</div>
-</div>
-</div>
-</footer>
-</section>
-</section>
-<aside class="aside-md bg-light dk" id="sidebar" style="display:none;" >
-<section class="vbox animated fadeInRight">
-<section class="w-f-md scrollable hover">
-<h4 class="font-thin m-l-md m-t">Connected</h4>
-<ul class="list-group no-bg no-borders auto m-t-n-xxs">
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a1.png')}" alt="..." class="img-circle">
-<i class="on b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Chris Fox</a>
-</div>
-<small class="text-muted">New York</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a2.png')}" alt="...">
-<i class="on b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Amanda Conlan</a>
-</div>
-<small class="text-muted">France</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a3.png')}" alt="...">
-<i class="busy b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Dan Doorack</a>
-</div>
-<small class="text-muted">Hamburg</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a4.png')}" alt="...">
-<i class="away b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Lauren Taylor</a>
-</div>
-<small class="text-muted">London</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a5.png')}" alt="..." class="img-circle">
-<i class="on b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Chris Fox</a>
-</div>
-<small class="text-muted">Milan</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a6.png')}" alt="...">
-<i class="on b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Amanda Conlan</a>
-</div>
-<small class="text-muted">Copenhagen</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a7.png')}" alt="...">
-<i class="busy b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Dan Doorack</a>
-</div>
-<small class="text-muted">Barcelona</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a8.png')}" alt="...">
-<i class="away b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Lauren Taylor</a>
-</div>
-<small class="text-muted">Tokyo</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a9.png')}" alt="..." class="img-circle">
-<i class="on b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Chris Fox</a>
-</div>
-<small class="text-muted">UK</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a1.png')}" alt="...">
-<i class="on b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Amanda Conlan</a>
-</div>
-<small class="text-muted">Africa</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a2.png')}" alt="...">
-<i class="busy b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Dan Doorack</a>
-</div>
-<small class="text-muted">Paris</small>
-</div>
-</li>
-<li class="list-group-item">
-<span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-<img src="${resource(dir:'images',file:'a3.png')}" alt="...">
-<i class="away b-light right sm"></i>
-</span>
-<div class="clear">
-<div>
-<a href="/JetSetMag">Lauren Taylor</a>
-</div>
-<small class="text-muted">Brussels</small>
-</div>
-</li>
-</ul>
-</section>
-<footer class="footer footer-md bg-black">
-<form class="" role="search">
-<div class="form-group clearfix m-b-none">
-<div class="input-group m-t m-b">
-<span class="input-group-btn">
-<button type="submit" class="btn btn-sm bg-empty text-muted btn-icon">
-<i class="fa fa-search"></i>
-</button>
-</span>
-<input type="text" class="form-control input-sm text-white bg-empty b-b b-dark no-border" placeholder="Search members">
-</div>
-</div>
-</form>
-</footer>
-</section>
-</aside>
-</section>
-<href="/JetSetMag" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+	<br /><g:layoutBody />
 </section>
 </section>
 </section>
 </section>
-<!-- Bootstrap -->
-<!-- App -->
-        <script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js',file:'app.plugin.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jPlayer',file:'jquery.jplayer.min.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jPlayer/add-on',file:'jplayer.playlist.min.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jPlayer',file:'demo.js')}"></script>
+<a href="/JetSetMag" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+</section>
+</section>
+</section>
+</section>
 </body>
 </html>

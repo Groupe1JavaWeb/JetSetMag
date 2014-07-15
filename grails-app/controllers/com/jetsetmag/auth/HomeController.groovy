@@ -1,4 +1,4 @@
-package com.jetsetmag
+package com.jetsetmag.auth
 
 class HomeController {
 

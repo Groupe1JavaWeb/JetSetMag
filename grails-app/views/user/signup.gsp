@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Jet7 Magazine - Inscription</title>
-    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<link rel="stylesheet" href="${resource(dir:'js/jPlayer',file:'jplayer.flat.css')}" />
 	<link rel="stylesheet" href="${resource(dir:'css',file:'app.v1.css')}" />
@@ -85,8 +85,5 @@
 	<!-- App -->
 	<script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
 	<script type="text/javascript" src="${resource(dir:'js',file:'app.plugin.js')}"></script>
-	<script type="text/javascript" src="${resource(dir:'js/jPlayer',file:'jquery.jplayer.min.js')}"></script>
-	<script type="text/javascript" src="${resource(dir:'js/jPlayer/add-on',file:'jplayer.playlist.min.js')}"></script>
-	<script type="text/javascript" src="${resource(dir:'js/jPlayer',file:'demo.js')}"></script>
 </body>
 </html>

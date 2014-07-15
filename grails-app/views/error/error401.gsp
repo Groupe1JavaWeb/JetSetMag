@@ -7,12 +7,13 @@
 	</g:if>
 	<meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	<link rel="stylesheet" href="js/jPlayer/jplayer.flat.css" type="text/css" />
-	<link rel="stylesheet" href="css/app.v1.css" type="text/css" />
-	<!--[if lt IE 9]> 
-	<script src="js/ie/html5shiv.js"></script> 
-	<script src="js/ie/respond.min.js"></script> 
-	<script src="js/ie/excanvas.js"></script> 
+	<link rel="stylesheet" href="${resource(dir:'js/jPlayer',file:'jplayer.flat.css')}" />
+	<link rel="stylesheet" href="${resource(dir:'css',file:'app.v1.css')}" />
+	<link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
+    <!--[if lt IE 9]>
+		<script src="${resource(dir:'js/ie',file:'html5shiv.js')}"></script>
+		<script src="${resource(dir:'js/ie',file:'respond.min.js')}"></script>
+		<script src="${resource(dir:'js/ie',file:'excanvas.js')}"></script>
 	<![endif]-->
 </head>
 <body class="bg-light dk">
@@ -20,7 +21,7 @@
 		<div class="row m-n">
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="text-center m-b-lg">
-					<h1 class="h text-white animated fadeInDownBig">404</h1>
+					<h1 class="h text-white animated fadeInDownBig">Error</h1>
 					<hr />
 					<g:if env="development">
 						<g:renderException exception="${exception}" />
@@ -55,7 +56,9 @@
 		</div> 
 	</footer> 
 	<!-- / footer -->
-	<!-- Bootstrap --> 
+	<!-- Bootstrap -->
 	<!-- App -->
+	<script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
+	<script type="text/javascript" src="${resource(dir:'js',file:'app.plugin.js')}"></script>
 	</body>
 </html>

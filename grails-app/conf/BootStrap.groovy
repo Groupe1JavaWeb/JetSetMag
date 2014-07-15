@@ -1,4 +1,4 @@
-import com.jetsetmag.User
+import com.jetsetmag.auth.User;
 
 class BootStrap {
 

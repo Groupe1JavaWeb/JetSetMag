@@ -16,6 +16,37 @@ grails.project.groupId = appName // change this to alter the default package nam
 
 //grails.resources.mappers.baseurl.default = "http://localhost:8080/JetSetMag"
 
+//grails.plugin.springsecurity.portMapper.httpPort = 8080
+//grails.plugin.springsecurity.portMapper.httpsPort = 8443
+// très stricte 
+//grails.plugin.springsecurity.rejectIfNoRule = true
+//grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+// moins stricte
+//grails.plugin.springsecurity.rejectIfNoRule = false
+//grails.plugin.springsecurity.fii.rejectPublicInvocations = true
+// Static mapping
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.interceptUrlMap = [
+	'/':                  		['permitAll'],
+	'/index':             		['permitAll'],
+	'/index.gsp':         		['permitAll'],
+	'/assets/**':         		['permitAll'],
+	//'/login/auth':              ['permitAll'],
+	// static
+	'/**/fonts/**':      		['permitAll'],
+	'/**/js/**':          		['permitAll'],
+	'/**/css/**':         		['permitAll'],
+	'/**/images/**':      		['permitAll'],
+	'/**/favicon.ico':    		['permitAll'],
+	// static actions
+	'/register':         	['permitAll'],
+	'/login':          		['permitAll'],
+	'/logout':         		['permitAll'],
+	//'/admin/**':          	['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'],	
+    '/**':						['IS_AUTHENTICATED_FULLY']	// securiser le reste ;) // la plus radicale la plus stricte
+]
+
+
 elasticSearch.client.mode = 'local'
 elasticSearch.datastoreImpl = 'hibernateDatastore'
 
