@@ -25,26 +25,54 @@ grails.plugin.springsecurity.rejectPublicInvocations = false
 // moins stricte
 //grails.plugin.springsecurity.rejectIfNoRule = false
 //grails.plugin.springsecurity.rejectPublicInvocations = true
+// init config
+//// A
+	//grails.plugin.springsecurity.auth.loginFormUrl="/"
+	//grails.plugin.springsecurity.failureHandler.defaultFailureUrl="/"
+	grails.plugin.springsecurity.auth.loginFormUrl="/home/login"
+	grails.plugin.springsecurity.failureHandler.defaultFailureUrl="/home/login"
+//// B	
+	grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/home" //On successful Login
+	grails.plugin.springsecurity.logout.afterLogoutUrl="/home" //On successful Logout
 // Static mapping
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugin.springsecurity.interceptUrlMap = [
-	'/':                  		['permitAll'],
-	'/index':             		['permitAll'],
-	'/index.gsp':         		['permitAll'],
-	'/assets/**':         		['permitAll'],
-	//'/login/auth':              ['permitAll'],
+	// Default Grails
+		'/':                  		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ], // [ 'IS_AUTHENTICATED_ANONYMOUSLY' ] : plus sécurisée ///// ['permitAll'] : moins stricte
+		'/index':             		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/index.gsp':         		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/assets/**':         		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
 	// static
-	'/**/fonts/**':      		['permitAll'],
-	'/**/js/**':          		['permitAll'],
-	'/**/css/**':         		['permitAll'],
-	'/**/images/**':      		['permitAll'],
-	'/**/favicon.ico':    		['permitAll'],
+		'/**/fonts/**':      		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/**/js/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/**/css/**':         		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/**/icones/**':      		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/**/images/**':      		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
+		'/**/favicon.ico':    		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
 	// static actions
-	'/register':         	['permitAll'],
-	'/login':          		['permitAll'],
-	'/logout':         		['permitAll'],
-	//'/admin/**':          	['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'],	
-    '/**':						['IS_AUTHENTICATED_FULLY']	// securiser le reste ;) // la plus radicale la plus stricte
+		'/home/index':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+		'/home/login':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+		'/home/logout':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+		'/home/register':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+		'/home/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+	// static aliases
+		'/login/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+		'/logout/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+		'/register/**':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
+	// Admin,Member,SuperAdmin
+		//Common
+			'/private/**':          	[ 'ROLE_MEMBER','ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],	// la partie sécurisée ( Member / Admin / SuperAdmin )
+		//only Admin,SuperAdmin
+			'/user/list': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/show': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/edit': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/save': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/update': 			[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/create': 			[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/delete': 			[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+			'/user/**': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
+	// Others
+	    '/**':							[ 'IS_AUTHENTICATED_FULLY' ]	// securiser le reste ;) // la plus radicale la plus stricte
 ]
 
 elasticSearch.client.mode = 'local'

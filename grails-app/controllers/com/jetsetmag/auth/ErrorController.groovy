@@ -1,5 +1,8 @@
 package com.jetsetmag.auth
 
+import grails.plugin.springsecurity.annotation.Secured
+
+@Secured(['permiAll'])
 class ErrorController {
 
     def index() { render view : 'error' }

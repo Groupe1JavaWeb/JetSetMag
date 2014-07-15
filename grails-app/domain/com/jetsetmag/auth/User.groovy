@@ -5,8 +5,8 @@ class User {
 	static searchable = true
 	
 	////transient springSecurityService
-	def springSecurityService
-	static transients = ['springSecurityService']
+	//def springSecurityService
+	//static transients = ['springSecurityService']
 	
 	Integer id
 	String username
@@ -43,12 +43,12 @@ class User {
 		 if (isDirty('password')) {
 			 encodePassword()
 		 }
-	}*/
+	}
   
 	protected void encodePassword() {
 		//password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-		//password = springSecurityService.encodePassword(password)
-	}
+		password = springSecurityService.encodePassword(password)
+	}*/
 	 
 	static mapping = {
 		table 'j7m_users'

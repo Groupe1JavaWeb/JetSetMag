@@ -52,7 +52,7 @@
 </div>
 </form>
 <div class="navbar-right ">
-<g:if test="${session.user}">
+<sec:ifLoggedIn>
 <ul class="nav navbar-nav m-n hidden-xs nav-user user">
 <li class="hidden-xs">
 <a href="/JetSetMag" class="dropdown-toggle lt" data-toggle="dropdown">
@@ -118,18 +118,18 @@
 <li class="divider"></li>
 <li>
 <!--<g:link controller="user" action="logout" data-toggle="ajaxModal" >Logout</g:link>--><!--  nice loading with ajax -->
-<g:link controller="user" action="logout" >Logout</g:link>
+<g:link controller="Home" action="logout" >Logout</g:link>
 </li>
 </ul>
 </li>
 </ul>
-</g:if>
-<g:else>
+</sec:ifLoggedIn>
+<sec:ifNotLoggedIn>
 <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-	<li class="hidden-xs"><g:link controller="user" action="login" ><i class="fa fa-sign-in"></i> Sign In</g:link></li>
-	<li class="hidden-xs"><g:link controller="user"  action="register" ><i class="fa fa-asterisk"></i> Sign Up</g:link></li>
+	<li class="hidden-xs"><g:link controller="Home" action="login" ><i class="fa fa-sign-in"></i> Sign In</g:link></li>
+	<li class="hidden-xs"><g:link controller="Home"  action="register" ><i class="fa fa-asterisk"></i> Sign Up</g:link></li>
 </ul>
-</g:else>
+</sec:ifNotLoggedIn>
 </div>
 </header>
 <section>
@@ -173,7 +173,7 @@
 <!-- / nav -->
 </div>
 </section>
-<g:if test="${session.user}">
+<sec:ifLoggedIn>
 <footer class="footer hidden-xs no-padder text-center-nav-xs">
 <div class="bg hidden-xs ">
 <div class="dropdown dropup wrapper-sm clearfix">
@@ -208,13 +208,13 @@
 </li>
 <li class="divider"></li>
 <li>
-<g:link controller="user" action="logout" >Logout</g:link>
+<g:link controller="Home" action="logout" >Logout</g:link>
 </li>
 </ul>
 </div>
 </div>
 </footer>
-</g:if>
+</sec:ifLoggedIn>
 </section>
 </aside>
 <!-- /.aside -->
@@ -243,7 +243,33 @@
 		<br />
 		<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
 	</g:if>
-	<br /><g:layoutBody />
+	<sec:ifNotLoggedIn>
+		<br />
+		<g:link controller='Home' action='login'>Login</g:link>
+		<g:link controller='Home' action='regsiter'>Register</g:link>
+		<!-- 
+		<div class="row m-t-lg m-b-lg">
+			<div class="col-sm-6">
+				<div class="bg-primary wrapper-md r">
+					<a href="#"> 
+						<span class="h4 m-b-xs block"><i class=" icon-user-follow i-lg"></i> Login or Create account</span> 
+						<span class="text-muted">Save and share your playlist with your friends when you log in or create an account.</span> 
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="bg-black wrapper-md r">
+					<a href="#">
+						<span class="h4 m-b-xs block"><i class="icon-cloud-download i-lg"></i> Download our app</span>
+						<span class="text-muted">Get the apps for desktop and mobile to start listening music at anywhere and anytime.</span>
+					</a>
+				</div>
+			</div>
+		</div>		
+		 -->
+	</sec:ifNotLoggedIn>
+	<br />
+	<g:layoutBody />
 </section>
 </section>
 </section>
