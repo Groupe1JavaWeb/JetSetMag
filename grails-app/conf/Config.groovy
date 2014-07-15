@@ -16,14 +16,15 @@ grails.project.groupId = appName // change this to alter the default package nam
 
 //grails.resources.mappers.baseurl.default = "http://localhost:8080/JetSetMag"
 
-//grails.plugin.springsecurity.portMapper.httpPort = 8080
-//grails.plugin.springsecurity.portMapper.httpsPort = 8443
+grails.plugin.springsecurity.portMapper.httpPort = 8080
+grails.plugin.springsecurity.portMapper.httpsPort = 8443
+//grails.plugin.springsecurity.useBasicAuth = false
 // très stricte 
-//grails.plugin.springsecurity.rejectIfNoRule = true
-//grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.rejectIfNoRule = true
+grails.plugin.springsecurity.rejectPublicInvocations = false
 // moins stricte
 //grails.plugin.springsecurity.rejectIfNoRule = false
-//grails.plugin.springsecurity.fii.rejectPublicInvocations = true
+//grails.plugin.springsecurity.rejectPublicInvocations = true
 // Static mapping
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugin.springsecurity.interceptUrlMap = [
@@ -45,7 +46,6 @@ grails.plugin.springsecurity.interceptUrlMap = [
 	//'/admin/**':          	['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'],	
     '/**':						['IS_AUTHENTICATED_FULLY']	// securiser le reste ;) // la plus radicale la plus stricte
 ]
-
 
 elasticSearch.client.mode = 'local'
 elasticSearch.datastoreImpl = 'hibernateDatastore'

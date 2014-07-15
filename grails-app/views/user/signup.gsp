@@ -41,21 +41,22 @@
 					</g:if>
 					<br />
 				</header>
-           		<form action="regsiter" method="POST" >
+           		<!--<form action="JetSetMag/user/register" method="POST" >-->
+           		<form action="/register" method="POST" >
                    	<div class="form-group">
-                       	<input type="text" name="lastn" placeholder="Last Name" class="form-control rounded input-lg text-center no-border" required >
+                       	<input type="text" name="lastn" value="marwen" placeholder="Last Name" class="form-control rounded input-lg text-center no-border" required >
                    	</div>
                    	<div class="form-group">
-                       	<input type="text" name="firstn" placeholder="First Name" class="form-control rounded input-lg text-center no-border" required >
+                       	<input type="text" name="firstn" value="marwen" placeholder="First Name" class="form-control rounded input-lg text-center no-border" required >
                     </div>
                    	<div class="form-group">
-                       	<input type="email" name="email" placeholder="Email" class="form-control rounded input-lg text-center no-border" required >
+                       	<input type="email" name="email" value="marwen@jetsetmag.com" placeholder="Email" class="form-control rounded input-lg text-center no-border" required >
                     </div>
                     <div class="form-group">
-                   		<input placeholder="Login" name="login" class="form-control rounded input-lg text-center no-border"  required >
+                   		<input placeholder="Login" name="login" value="marwen" class="form-control rounded input-lg text-center no-border"  required >
                    	</div>
                     <div class="form-group">
-                        <input type="password" name="password" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
+                        <input type="password" name="password" value="marwen" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
                     </div>
                     <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" >
                         <i class="icon-arrow-right pull-right"></i>
