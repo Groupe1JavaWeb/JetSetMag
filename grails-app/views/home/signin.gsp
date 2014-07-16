@@ -46,10 +46,10 @@
            		<!-- <form action="${postUrl}" method="POST" autocomplete="off"> -->
            		<form method="POST" autocomplete="off" id="frmSignIn" autocomplete="off" >
                		<div class="form-group">
-                   		<input type="text" name="j_username" id="username" value="tech_num_1" placeholder="login" class="form-control rounded input-lg text-center no-border" required >
+                   		<input type="text" name="j_username" id="username" value="" placeholder="login" class="form-control rounded input-lg text-center no-border" required >
                    	</div>
                 	<div class="form-group">
-                    	<input type="password" name="j_password" id="password" value="123456" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
+                    	<input type="password" name="j_password" id="password" value="" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
                     </div>
 					<div class="checkbox i-checks m-b">
 						<label class="m-l">

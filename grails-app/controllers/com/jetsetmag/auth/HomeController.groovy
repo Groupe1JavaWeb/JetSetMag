@@ -56,10 +56,10 @@ class HomeController {
 			if(request.post){
 				def user = new User(email:params['email'],username:params['login'],password:params['password'],firstName:params['firstn'],lastName:params['lastn'])
 				if (user.save(flush: true)) {
-					// def guest role by default
-						def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
-						UserRole.create testUser, userRole, true
-					flash.success = "Thank you for signing up to our JetSet Magazine!"
+					// ROLE_USER by default and it's a disabled account
+						def Role = Role.findByAuthority('ROLE_USER')
+						UserRole.create user, Role, true
+					flash.success = "Thank you for signing up to our JetSet Magazine !"
 					redirect(controller:'home',action:'index')
 				}else{
 					flash.warning = "An error !"
