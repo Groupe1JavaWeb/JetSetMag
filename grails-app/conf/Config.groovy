@@ -130,7 +130,7 @@ grails.plugin.springsecurity.successHandler.alwaysUseDefault=true
 grails.plugin.springsecurity.logout.afterLogoutUrl="/home" // hide errors to /home
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	'*':                              ['permitAll'],
+	//'*':                              ['permitAll'],
 	'/':                              ['permitAll'],
 	'/home':                          ['permitAll'],
 	'/login':                         ['permitAll'],

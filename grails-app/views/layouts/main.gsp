@@ -47,7 +47,7 @@
 <i class="fa fa-search"></i>
 </button>
 </span>
-<input type="text" class="form-control input-sm no-border rounded" placeholder="Search songs, albums...">
+<input type="text" class="form-control input-sm no-border rounded" placeholder="Search events,songs,movies,albums...">
 </div>
 </div>
 </form>
@@ -95,8 +95,8 @@
 <li class="dropdown">
 <a href="${request.contextPath}" class="dropdown-toggle bg clear" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-<avatar:gravatar email="${currentUser.email}" />
-</span> <sec:loggedInUserInfo field="username"/>
+<avatar:gravatar email="${session.currentUser.email}" />
+</span> ${session.currentUser.username}
 <b class="caret"></b>
 </a>
 <ul class="dropdown-menu animated fadeInRight">
@@ -169,6 +169,46 @@
 </li>
 <li class="m-b hidden-nav-xs"></li>
 </ul>
+<sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN,ROLE_MEMBER" >
+	<ul class="nav" data-ride="collapse">
+	    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> Private Area </li>
+	    <li>
+	        <a href="#" class="auto">
+	            <span class="pull-right text-muted">
+	                <i class="fa fa-angle-left text"></i>
+	                <i class="fa fa-angle-down text-active"></i>
+	            </span>
+	            <i class="icon-grid icon"></i>
+	            <span>Gestion</span>
+	        </a>
+	        <ul class="nav dk text-sm">
+	        	<sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN" >
+	            <li>
+	                <g:link controller="User" action="list" class="auto" >
+	                	<b class="badge bg-success pull-right">4</b>
+	                    <i class="fa fa-angle-right text-xs"></i>
+	                    <span>Users</span>
+	                </g:link>
+	            </li>
+	            </sec:ifAnyGranted>
+	            <li>
+	                <a href="blog.html" class="auto">
+	                	<b class="badge bg-info pull-right">369</b>
+	                    <i class="fa fa-angle-right text-xs"></i>
+	                    <span>News</span>
+	                </a>
+	            </li>
+	            <li>
+	                <a href="invoice.html" class="auto">
+	                	<b class="badge pull-right">0</b>
+	                    <i class="fa fa-angle-right text-xs"></i>
+	                    <span>Media</span>
+	                </a>
+	            </li>
+	        </ul>
+	    </li>
+	</ul>
+</sec:ifAnyGranted>
 </nav>
 <!-- / nav -->
 </div>
@@ -179,15 +219,15 @@
 <div class="dropdown dropup wrapper-sm clearfix">
 <a href="${request.contextPath}" class="dropdown-toggle" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-left m-l-xs">
-<avatar:gravatar email="${currentUser.email}" />
+<avatar:gravatar email="${session.currentUser.email}" />
 <i class="on b-black"></i>
 </span>
 <span class="hidden-nav-xs clear">
 <span class="block m-l">
-<strong class="font-bold text-lt"><sec:loggedInUserInfo field="username"/></strong>
+<strong class="font-bold text-lt">${session.currentUser.username}</strong>
 <b class="caret"></b>
 </span>
-<span class="text-muted text-xs block m-l">${currentUser.lastName} ${currentUser.firstName}</span>
+<span class="text-muted text-xs block m-l">${session.currentUser.lastName} ${session.currentUser.firstName}</span>
 </span>
 </a>
 <ul class="dropdown-menu animated fadeInRight aside text-left">
@@ -248,7 +288,7 @@
 		<div class="row m-t-lg m-b-lg">
 			<div class="col-sm-6">
 				<div class="bg-primary wrapper-md r">
-					<g:link controller="Home" action="logout" > 
+					<g:link controller="Home" action="login" > 
 						<span class="h4 m-b-xs block"><i class=" icon-user-follow i-lg"></i> Login or Create account</span> 
 						<span class="text-muted">Save and share your playlist with your friends when you log in or create an account.</span> 
 					</g:link>

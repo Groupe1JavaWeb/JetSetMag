@@ -18,21 +18,20 @@ class HomeController {
 	def config = SpringSecurityUtils.securityConfig
 	
     def index = {
-		User currentUser
-			
-		if (springSecurityService.isLoggedIn()) {
-			currentUser = springSecurityService.getCurrentUser() // loadCurrentUser()
-			//println currentUser.getEmail()
-			//println currentUser.email
+		
+		if(!session.currentUser){		
+			if ( springSecurityService.isLoggedIn() ) {
+				session.currentUser = springSecurityService.getCurrentUser() ;
+			}
 		}
 		
-		render view : 'index' , model : [currentUser:currentUser]	
+		render view : 'index' // Session currentUser is ON
 	}
 
 	def login = {
-
-		if (springSecurityService.isLoggedIn()) {
+		if ( session.currentUser ) {
 			redirect uri: config.successHandler.defaultTargetUrl
+			//redirect(controller:'home',action:'index')
 			return
 		}
 
@@ -42,17 +41,18 @@ class HomeController {
 	}
 	
 	def logout = {		
-		if (springSecurityService.isLoggedIn()) {
-	        session.invalidate()
+		if ( session.currentUser ) {
+	        session.currentUser=null
+			session.invalidate()
 			redirect uri: config.logout.filterProcessesUrl
-			////redirect(controller:'home',action:'index')
+			//redirect(controller:'home',action:'index')
 		}
 		
 		render view: 'index'
 	}
 
 	def register = {		
-		if(!springSecurityService.isLoggedIn()) {
+		if( !session.currentUser ) {
 			if(request.post){
 				def user = new User(email:params['email'],username:params['login'],password:params['password'],firstName:params['firstn'],lastName:params['lastn'])
 				if (user.save(flush: true)) {
@@ -60,21 +60,21 @@ class HomeController {
 						def Role = Role.findByAuthority('ROLE_USER')
 						UserRole.create user, Role, true
 					flash.success = "Thank you for signing up to our JetSet Magazine !"
-					redirect(controller:'home',action:'index')
+					redirect(controller:'Home',action:'index')
 				}else{
 					flash.warning = "An error !"
-					redirect(controller:'home',action:'register')
+					redirect(controller:'Home',action:'register')
 				}
 			}else{
 				render view : 'signup'
 			}
 		}else{
 			redirect(controller:'home',action:'index')
-		}		
+		}
 	}
 	
 	def downloadApp = {		
-		// télécharger l'application java swing		
+		render view : 'download'		
 	}
 	
 }

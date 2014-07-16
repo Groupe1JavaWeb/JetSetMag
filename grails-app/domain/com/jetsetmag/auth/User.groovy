@@ -3,6 +3,7 @@ package com.jetsetmag.auth
 class User {
 	
 	static searchable = true
+	//static scaffold = true
 	
 	transient springSecurityService
 	

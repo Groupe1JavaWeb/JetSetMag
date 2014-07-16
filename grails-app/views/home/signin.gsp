@@ -111,7 +111,7 @@
 			         		$("div#AjaxAndPostNotif").append('<p><div class="alert alert-danger" style="display: block">'+response.error+'</div></p>');
 			    		}
 					},error : function( XMLHttpRequest, textStatus, errorThrown) { 
-						//console.error("Error ? ");
+						console.error(dataUrl+"-"+XMLHttpRequest+"-"+textStatus+"-"+errorThrown);
 						$("div#AjaxAndPostNotif").append('<p><div class="alert alert-warning" style="display: block">Error !</div></p>');
 					}
 				});

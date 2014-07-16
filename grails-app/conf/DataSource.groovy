@@ -16,6 +16,13 @@ hibernate {
 	format_sql = true
 }
 
+/*mongo {
+	host = "localhost"
+	port = 27107
+	username = "jet7mag"
+	password= "UxcFrt12X"
+	databaseName = "news"
+}*/
 
 log4j = {
    debug 'org.hibernate.SQL'
