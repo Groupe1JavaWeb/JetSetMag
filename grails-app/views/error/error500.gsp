@@ -21,7 +21,7 @@
 		<div class="row m-n">
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="text-center m-b-lg">
-					<h1 class="h text-white animated fadeInDownBig">Error</h1>
+					<h1 class="h text-white animated fadeInDownBig">500</h1>
 					<hr />
 					<g:if env="development">
 						<g:renderException exception="${exception}" />

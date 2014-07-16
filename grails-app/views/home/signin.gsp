@@ -23,33 +23,49 @@
        		<section class="m-b-lg">
            		<header class="wrapper text-center">
                		<strong>Sign in to get in touch</strong>
-					<g:if test="${flash.error}">
-						<div class="alert alert-error" style="display: block">${flash.error}</div>
-					</g:if>
-					<g:if test="${flash.danger}">
-						<div class="alert alert-danger" style="display: block">${flash.danger}</div>
-					</g:if>
-					<g:if test="${flash.message}">
-						<div class="alert alert-info" style="display: block">${flash.message}</div>
-					</g:if>
-					<g:if test="${flash.success}">
-						<div class="alert alert-success" style="display: block">${flash.success}</div>
-					</g:if>
-					<g:if test="${flash.warning}">
-						<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
-					</g:if>
+	               	<div id="AjaxAndPostNotif" >
+						<g:if test="${flash.error}">
+							<p><div class="alert alert-error" style="display: block">${flash.error}</div></p>
+						</g:if>
+						<g:if test="${flash.danger}">
+							<p><div class="alert alert-danger" style="display: block">${flash.danger}</div></p>
+						</g:if>
+						<g:if test="${flash.message}">
+							<p><div class="alert alert-info" style="display: block">${flash.message}</div></p>
+						</g:if>
+						<g:if test="${flash.success}">
+							<p><div class="alert alert-success" style="display: block">${flash.success}</div></p>
+						</g:if>
+						<g:if test="${flash.warning}">
+							<p><div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div></p>
+						</g:if>
+						<!-- Ajax Notif Here-->
+					</div>
            		</header>
-           		<form action="${request.contextPath}/j_spring_security_check" method="POST" autocomplete="off">
+           		
+           		<!-- <form action="${postUrl}" method="POST" autocomplete="off"> -->
+           		<form method="POST" autocomplete="off" id="frmSignIn" autocomplete="off" >
                		<div class="form-group">
-                   		<input type="text" name="j_username" id="username" placeholder="login" class="form-control rounded input-lg text-center no-border" required >
+                   		<input type="text" name="j_username" id="username" value="tech_num_1" placeholder="login" class="form-control rounded input-lg text-center no-border" required >
                    	</div>
                 	<div class="form-group">
-                    	<input type="password" name="j_password" id="password" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
+                    	<input type="password" name="j_password" id="password" value="123456" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
                     </div>
-                    <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded">
-                        <i class="icon-arrow-right pull-right"></i>
-                        <span class="m-r-n-lg">Sign in</span>
-                    </button>
+					<div class="checkbox i-checks m-b">
+						<label class="m-l">
+							<input type="checkbox" <g:if test='${hasCookie}'>checked='checked'</g:if> name='${rememberMeParameter}' id='remember_me' ><i></i> Remember Me 
+						</label>
+					</div>
+					<br />
+					
+                    <!-- 
+	                    <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded">
+	                        <i class="icon-arrow-right pull-right"></i>
+	                        <span class="m-r-n-lg">Sign in</span>
+	                    </button>
+                    -->
+                    <input type="button" onclick='javascript:authAjax();' class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" value="Sign In" />
+                    
             		<div class="line line-dashed"></div>
                 	<p class="text-muted text-center">
                 		<small>Do not have an account?</small>
@@ -74,5 +90,32 @@
 	<!-- App -->
         <script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js',file:'app.plugin.js')}"></script>
+	    <script type='text/javascript'>
+		    function authAjax(){
+		    		$("div#AjaxAndPostNotif").empty();
+					var formdata = $('form#frmSignIn').serialize();
+					var dataUrl = "${postUrl}"      
+					jQuery.ajax({
+					type : 'POST',
+					url :  dataUrl ,
+					data : formdata,
+					success : function(response,textStatus){
+			        	if(response.success){
+			    			// var redirectUrl="${ createLink(action:'index' ,controller:'home') }";
+			         		// window.location.assign(redirectUrl);
+			         		window.location.href="${request.contextPath}${successUrl}";
+			        	}
+			        	else
+			    		{
+			         		//console.error(response.error);
+			         		$("div#AjaxAndPostNotif").append('<p><div class="alert alert-danger" style="display: block">'+response.error+'</div></p>');
+			    		}
+					},error : function( XMLHttpRequest, textStatus, errorThrown) { 
+						//console.error("Error ? ");
+						$("div#AjaxAndPostNotif").append('<p><div class="alert alert-warning" style="display: block">Error !</div></p>');
+					}
+				});
+		    }
+	    </script>
     </body>
 </html>

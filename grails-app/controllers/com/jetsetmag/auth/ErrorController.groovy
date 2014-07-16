@@ -7,6 +7,12 @@ class ErrorController {
 
     def index() { render view : 'error' }
 	
+	def denied() { render view : 'denied' }
+
+	def error400 = {
+		render view : 'error400'
+	}
+	
 	def error401 = {
 		render view : 'error401'
 	}

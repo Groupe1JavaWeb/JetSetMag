@@ -4,11 +4,8 @@ class User {
 	
 	static searchable = true
 	
-	////transient springSecurityService
-	//def springSecurityService
-	//static transients = ['springSecurityService']
+	transient springSecurityService
 	
-	Integer id
 	String username
 	String password // secret
 	String email
@@ -17,38 +14,41 @@ class User {
 	Date created = new Date()
 	Date modified = new Date()
 	Date lastConnection = new Date()
+	boolean enabled = false
 	boolean accountExpired = false
 	boolean accountLocked = false
-	boolean passwordExpired = false
+	boolean passwordExpired = false	
+	
+	static transients = ['springSecurityService']
 	
     static constraints = {
-		id generator: 'identity', column: 'id'
-		username size: 5..15, blank: false, nullable: false, unique: true
-		password size: 5..15, blank: false, nullable: false, password:true
-		firstName blank: false, nullable: false
-		lastName blank: false, nullable: false
-		email email: true, blank: false, unique: true
+		username	size: 5..15, blank: false, nullable: false, unique: true
+		password	blank: false, nullable: false, password:true
+		firstName	blank: false, nullable: false
+		lastName	blank: false, nullable: false
+		email		email: true, blank: false, unique: true
     }
 
 	Set<Role> getAuthorities() { // The getAuthorities() method is analagous to defining static hasMany = [authorities: Authority]
-		//UserRole.findAllByUser(this).collect { it.role }
-		UserRole.findAllByUser(this).collect { it.role } as Set
+		UserRole.findAllByUser(this).collect { it.role }
 	}
   
-	/*def beforeInsert() {
+	def beforeInsert() {
+		created = new Date()
 		encodePassword()
 	}
   
 	def beforeUpdate() {
-		 if (isDirty('password')) {
-			 encodePassword()
-		 }
+		modified = new Date()
+		if (isDirty('password')) {
+			encodePassword()
+		}
 	}
   
 	protected void encodePassword() {
-		//password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-		password = springSecurityService.encodePassword(password)
-	}*/
+		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+		//password = springSecurityService.encodePassword(password)
+	}
 	 
 	static mapping = {
 		table 'j7m_users'

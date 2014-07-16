@@ -11,72 +11,7 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
-
-//grails.resources.mappers.baseurl.default = "http://localhost:8080/JetSetMag"
-
-grails.plugin.springsecurity.portMapper.httpPort = 8080
-grails.plugin.springsecurity.portMapper.httpsPort = 8443
-//grails.plugin.springsecurity.useBasicAuth = false
-// très stricte 
-grails.plugin.springsecurity.rejectIfNoRule = true
-grails.plugin.springsecurity.rejectPublicInvocations = false
-// moins stricte
-//grails.plugin.springsecurity.rejectIfNoRule = false
-//grails.plugin.springsecurity.rejectPublicInvocations = true
-// init config
-//// A
-	//grails.plugin.springsecurity.auth.loginFormUrl="/"
-	//grails.plugin.springsecurity.failureHandler.defaultFailureUrl="/"
-	grails.plugin.springsecurity.auth.loginFormUrl="/home/login"
-	grails.plugin.springsecurity.failureHandler.defaultFailureUrl="/home/login"
-//// B	
-	grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/home" //On successful Login
-	grails.plugin.springsecurity.logout.afterLogoutUrl="/home" //On successful Logout
-// Static mapping
-grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
-grails.plugin.springsecurity.interceptUrlMap = [
-	// Default Grails
-		'/':                  		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ], // [ 'IS_AUTHENTICATED_ANONYMOUSLY' ] : plus sécurisée ///// ['permitAll'] : moins stricte
-		'/index':             		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/index.gsp':         		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/assets/**':         		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-	// static
-		'/**/fonts/**':      		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/**/js/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/**/css/**':         		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/**/icones/**':      		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/**/images/**':      		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-		'/**/favicon.ico':    		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],
-	// static actions
-		'/home/index':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-		'/home/login':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-		'/home/logout':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-		'/home/register':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-		'/home/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-	// static aliases
-		'/login/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-		'/logout/**':          		[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-		'/register/**':          	[ 'IS_AUTHENTICATED_ANONYMOUSLY' ],	// la partie commune HOME ( Login / Logout/ Register / Index ) : Controller : Home , Action : **
-	// Admin,Member,SuperAdmin
-		//Common
-			'/private/**':          	[ 'ROLE_MEMBER','ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],	// la partie sécurisée ( Member / Admin / SuperAdmin )
-		//only Admin,SuperAdmin
-			'/user/list': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/show': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/edit': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/save': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/update': 			[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/create': 			[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/delete': 			[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-			'/user/**': 				[ 'ROLE_ADMIN','ROLE_SUPERADMIN','IS_AUTHENTICATED_FULLY' ],
-	// Others
-	    '/**':							[ 'IS_AUTHENTICATED_FULLY' ]	// securiser le reste ;) // la plus radicale la plus stricte
-]
-
-elasticSearch.client.mode = 'local'
-elasticSearch.datastoreImpl = 'hibernateDatastore'
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
@@ -180,3 +115,35 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.jetsetmag.auth.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.jetsetmag.auth.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.jetsetmag.auth.Role'
+// Marwen Extra-Config ///////////////////////////////////////////////////////////////////////////////////
+grails.plugin.springsecurity.useBasicAuth = false
+grails.plugin.springsecurity.auth.loginFormUrl="/login"
+	grails.plugin.springsecurity.failureHandler.defaultFailureUrl="/login" // with erros must be catched in the view
+	grails.plugin.springsecurity.failureHandler.authenticationFailureUrl="/login" // not sure
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/home"
+grails.plugin.springsecurity.successHandler.alwaysUseDefault=true
+grails.plugin.springsecurity.logout.afterLogoutUrl="/home" // hide errors to /home
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'*':                              ['permitAll'],
+	'/':                              ['permitAll'],
+	'/home':                          ['permitAll'],
+	'/login':                         ['permitAll'],
+	'/register':                      ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/assets/**':                     ['permitAll'],
+	'/**/fonts/**':                   ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll']
+]
+
+elasticSearch.client.mode = 'local'
+elasticSearch.datastoreImpl = 'hibernateDatastore'

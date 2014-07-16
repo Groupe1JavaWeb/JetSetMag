@@ -22,7 +22,7 @@
 <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
 <i class="icon-list"></i>
 </a>
-<a href="/JetSetMag" class="navbar-brand text-lt">
+<a href="${request.contextPath}" class="navbar-brand text-lt">
 <i class="icon-earphones"></i>
 <img src="${resource(dir:'images',file:'logo.png')}" alt="." class="hide">
 <span class="hidden-nav-xs m-l-sm">Jet7 MaG</span>
@@ -55,7 +55,7 @@
 <sec:ifLoggedIn>
 <ul class="nav navbar-nav m-n hidden-xs nav-user user">
 <li class="hidden-xs">
-<a href="/JetSetMag" class="dropdown-toggle lt" data-toggle="dropdown">
+<a href="${request.contextPath}" class="dropdown-toggle lt" data-toggle="dropdown">
 <i class="icon-bell"></i>
 <span class="badge badge-sm up bg-danger count">2</span>
 </a>
@@ -67,7 +67,7 @@
 </strong>
 </div>
 <div class="list-group list-group-alt">
-<a href="/JetSetMag" class="media list-group-item">
+<a href="${request.contextPath}" class="media list-group-item">
 <span class="pull-left thumb-sm">
 <img src="${resource(dir:'images',file:'a0.png')}" alt="..." class="img-circle">
 </span>
@@ -76,7 +76,7 @@
 <small class="text-muted">10 minutes ago</small>
 </span>
 </a>
-<a href="/JetSetMag" class="media list-group-item">
+<a href="${request.contextPath}" class="media list-group-item">
 <span class="media-body block m-b-none"> 1.0 initial released
 <br>
 <small class="text-muted">1 hour ago</small>
@@ -84,36 +84,36 @@
 </a>
 </div>
 <div class="panel-footer text-sm">
-<a href="/JetSetMag" class="pull-right">
+<a href="${request.contextPath}" class="pull-right">
 <i class="fa fa-cog"></i>
 </a>
-<a href="/JetSetMagnotes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
+<a href="${request.contextPath}notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
 </div>
 </section>
 </section>
 </li>
 <li class="dropdown">
-<a href="/JetSetMag" class="dropdown-toggle bg clear" data-toggle="dropdown">
+<a href="${request.contextPath}" class="dropdown-toggle bg clear" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-<avatar:gravatar email="${session.user.email}" />
-</span> ${session.user.lastName} ${session.user.firstName}
+<avatar:gravatar email="${currentUser.email}" />
+</span> <sec:loggedInUserInfo field="username"/>
 <b class="caret"></b>
 </a>
 <ul class="dropdown-menu animated fadeInRight">
 <li>
 <span class="arrow top"></span>
-<a href="/JetSetMag">Settings</a>
+<a href="${request.contextPath}">Settings</a>
 </li>
 <li>
 <g:link controller="user" action="index" >Profile</g:link>
 </li>
 <li>
-<a href="/JetSetMag">
+<a href="${request.contextPath}">
 <span class="badge bg-danger pull-right">3</span> Notifications 
 </a>
 </li>
 <li>
-<a href="/JetSetMag">Help</a>
+<a href="${request.contextPath}">Help</a>
 </li>
 <li class="divider"></li>
 <li>
@@ -143,26 +143,26 @@
 <ul class="nav bg clearfix">
 <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> A la 7 </li>
 <li>
-<a href="/JetSetMag">
+<a href="${request.contextPath}">
 <i class="icon-globe icon text-success"></i>
 <span class="font-bold">7News</span>
 </a>
 </li>
 <li>
-<a href="/JetSetMag">
+<a href="${request.contextPath}">
 <i class="icon-book-open icon text-primary-lter"></i>
 <b class="badge bg-primary pull-right">6</b>
 <span class="font-bold">7Events</span>
 </a>
 </li>
 <li>
-<a href="/JetSetMag">
+<a href="${request.contextPath}">
 <i class="icon-music-tone-alt icon text-info"></i>
 <span class="font-bold">7Audio</span>
 </a>
 </li>
 <li>
-<a href="/JetSetMag" data-target="#content" data-el="#bjax-el" data-replace="true">
+<a href="${request.contextPath}" data-target="#content" data-el="#bjax-el" data-replace="true">
 <i class="icon-social-youtube icon text-primary"></i>
 <span class="font-bold">7Video</span>
 </a>
@@ -177,34 +177,34 @@
 <footer class="footer hidden-xs no-padder text-center-nav-xs">
 <div class="bg hidden-xs ">
 <div class="dropdown dropup wrapper-sm clearfix">
-<a href="/JetSetMag" class="dropdown-toggle" data-toggle="dropdown">
+<a href="${request.contextPath}" class="dropdown-toggle" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-left m-l-xs">
-<avatar:gravatar email="${session.user.email}" />
+<avatar:gravatar email="${currentUser.email}" />
 <i class="on b-black"></i>
 </span>
 <span class="hidden-nav-xs clear">
 <span class="block m-l">
-<strong class="font-bold text-lt"> ${session.user.lastName} ${session.user.firstName}</strong>
+<strong class="font-bold text-lt"><sec:loggedInUserInfo field="username"/></strong>
 <b class="caret"></b>
 </span>
-<span class="text-muted text-xs block m-l">Art Director</span>
+<span class="text-muted text-xs block m-l">${currentUser.lastName} ${currentUser.firstName}</span>
 </span>
 </a>
 <ul class="dropdown-menu animated fadeInRight aside text-left">
 <li>
 <span class="arrow bottom hidden-nav-xs"></span>
-<a href="/JetSetMag">Settings</a>
+<a href="${request.contextPath}">Settings</a>
 </li>
 <li>
-<a href="/JetSetMag">Profile</a>
+<a href="${request.contextPath}">Profile</a>
 </li>
 <li>
-<a href="/JetSetMag">
+<a href="${request.contextPath}">
 <span class="badge bg-danger pull-right">3</span> Notifications 
 </a>
 </li>
 <li>
-<a href="/JetSetMag">Help</a>
+<a href="${request.contextPath}">Help</a>
 </li>
 <li class="divider"></li>
 <li>
@@ -244,29 +244,25 @@
 		<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
 	</g:if>
 	<sec:ifNotLoggedIn>
-		<br />
-		<g:link controller='Home' action='login'>Login</g:link>
-		<g:link controller='Home' action='regsiter'>Register</g:link>
-		<!-- 
+		<br /> 
 		<div class="row m-t-lg m-b-lg">
 			<div class="col-sm-6">
 				<div class="bg-primary wrapper-md r">
-					<a href="#"> 
+					<g:link controller="Home" action="logout" > 
 						<span class="h4 m-b-xs block"><i class=" icon-user-follow i-lg"></i> Login or Create account</span> 
 						<span class="text-muted">Save and share your playlist with your friends when you log in or create an account.</span> 
-					</a>
+					</g:link>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="bg-black wrapper-md r">
-					<a href="#">
-						<span class="h4 m-b-xs block"><i class="icon-cloud-download i-lg"></i> Download our app</span>
-						<span class="text-muted">Get the apps for desktop and mobile to start listening music at anywhere and anytime.</span>
-					</a>
+					<g:link controller="Home" action="downloadApp" >
+						<span class="h4 m-b-xs block"><i class="icon-cloud-download i-lg"></i> Download our desktop application</span>
+						<span class="text-muted">Get the app for desktop to start following music,movies,events at anywhere and anytime.</span>
+					</g:link>
 				</div>
 			</div>
-		</div>		
-		 -->
+		</div>
 	</sec:ifNotLoggedIn>
 	<br />
 	<g:layoutBody />
@@ -274,7 +270,7 @@
 </section>
 </section>
 </section>
-<a href="/JetSetMag" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+<a href="${request.contextPath}" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
 </section>
 </section>
 </section>

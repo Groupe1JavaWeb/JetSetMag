@@ -43,23 +43,23 @@
 				</header>
            		<form action="${request.contextPath}/register" method="POST"  autocomplete="off" >
                    	<div class="form-group">
-                       	<input type="text" name="lastn" value="marwen" id="lastn" placeholder="Last Name" class="form-control rounded input-lg text-center no-border" required >
+                       	<input type="text" name="lastn" value="" id="lastn" placeholder="Last Name" class="form-control rounded input-lg text-center no-border" required >
                    	</div>
                    	<div class="form-group">
-                       	<input type="text" name="firstn" value="marwen" id="firstn" placeholder="First Name" class="form-control rounded input-lg text-center no-border" required >
+                       	<input type="text" name="firstn" value="" id="firstn" placeholder="First Name" class="form-control rounded input-lg text-center no-border" required >
                     </div>
                    	<div class="form-group">
-                       	<input type="email" name="email" id="mail" value="marwen@jetsetmag.com" placeholder="Email" class="form-control rounded input-lg text-center no-border" required >
+                       	<input type="email" name="email" id="email" value="" placeholder="Email" class="form-control rounded input-lg text-center no-border" required >
                     </div>
                     <div class="form-group">
-                   		<input placeholder="Login" name="login" id="login" value="marwen" class="form-control rounded input-lg text-center no-border"  required >
+                   		<input placeholder="Login" name="login" id="login" value="" class="form-control rounded input-lg text-center no-border"  required >
                    	</div>
                     <div class="form-group">
-                        <input type="password" name="password" id="password" value="marwen" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
+                        <input type="password" name="password" id="password" value="" placeholder="Password" class="form-control rounded input-lg text-center no-border" required >
                     </div>
-                    <div class="form-group">
-                        <input type="password" name="passwordVerif" id="passwordVerif" value="marwen" placeholder="Password Verification" class="form-control rounded input-lg text-center no-border" required >
-                    </div>
+                    <!--<div class="form-group">
+                        <input type="password" name="passwordVerif" id="passwordVerif" value="" placeholder="Password Verification" class="form-control rounded input-lg text-center no-border" required >
+                    </div>-->
                     <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" >
                         <i class="icon-arrow-right pull-right"></i>
                         <span class="m-r-n-lg">Sign up</span>
