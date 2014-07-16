@@ -1,6 +1,6 @@
-//import com.jetsetmag.auth.Role
-//import com.jetsetmag.auth.User
-//import com.jetsetmag.auth.UserRole
+import com.jetsetmag.auth.Role
+import com.jetsetmag.auth.User
+import com.jetsetmag.auth.UserRole
 
 class BootStrap {
 	
