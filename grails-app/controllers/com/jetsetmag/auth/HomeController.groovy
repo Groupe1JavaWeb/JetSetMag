@@ -12,6 +12,11 @@ class HomeController {
 	 */
 	def springSecurityService
 	
+	/**
+	 * Dependency injection for the SpringSecurityUtils. //  securityConfig
+	 */
+	def config = SpringSecurityUtils.securityConfig
+	
     def index = {
 		User currentUser
 			
@@ -24,8 +29,7 @@ class HomeController {
 		render view : 'index' , model : [currentUser:currentUser]	
 	}
 
-	def login = {		
-		def config = SpringSecurityUtils.securityConfig
+	def login = {
 
 		if (springSecurityService.isLoggedIn()) {
 			redirect uri: config.successHandler.defaultTargetUrl
@@ -40,7 +44,8 @@ class HomeController {
 	def logout = {		
 		if (springSecurityService.isLoggedIn()) {
 	        session.invalidate()
-			redirect(controller:'home',action:'index')
+			redirect uri: config.logout.filterProcessesUrl
+			////redirect(controller:'home',action:'index')
 		}
 		
 		render view: 'index'
