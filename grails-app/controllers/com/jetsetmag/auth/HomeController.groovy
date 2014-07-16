@@ -76,5 +76,25 @@ class HomeController {
 	def downloadApp = {		
 		render view : 'download'		
 	}
-	
+
+	def search = {
+		if(request.post){ // .get
+			def res = User.search("${params.searchField}") // calling elasticsearch static méthod search
+			if(res.total>0){
+				println "Found ${res.total} result(s)"
+				res.searchResults.each {
+					if(it instanceof User) {
+						println it.firstName
+					} else {
+						println it.toString()
+					}
+				}
+			}else{
+				println "No result found !"
+			}
+		}else{
+			println "What ?"
+		}
+	}
+
 }

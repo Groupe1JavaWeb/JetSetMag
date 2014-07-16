@@ -39,7 +39,7 @@
 </a>
 </li>
 </ul>
-<form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+<form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search" url="[action:'search',controller:'home']" method="POST" > 
 <div class="form-group">
 <div class="input-group">
 <span class="input-group-btn">
@@ -47,7 +47,7 @@
 <i class="fa fa-search"></i>
 </button>
 </span>
-<input type="text" class="form-control input-sm no-border rounded" placeholder="Search events,songs,movies,albums...">
+<input type="text" class="form-control input-sm no-border rounded" placeholder="events, songs, movies, albums ..." id="searchField" name="searchField" >
 </div>
 </div>
 </form>
@@ -71,13 +71,13 @@
 <span class="pull-left thumb-sm">
 <img src="${resource(dir:'images',file:'a0.png')}" alt="..." class="img-circle">
 </span>
-<span class="media-body block m-b-none"> Use awesome animate.css
+<span class="media-body block m-b-none"> news 1
 <br>
 <small class="text-muted">10 minutes ago</small>
 </span>
 </a>
 <a href="${request.contextPath}" class="media list-group-item">
-<span class="media-body block m-b-none"> 1.0 initial released
+<span class="media-body block m-b-none"> evenement 2
 <br>
 <small class="text-muted">1 hour ago</small>
 </span>
