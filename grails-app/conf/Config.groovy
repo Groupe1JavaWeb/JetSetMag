@@ -122,6 +122,8 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.jetsetmag.
 grails.plugin.springsecurity.authority.className = 'com.jetsetmag.auth.Role'
 // Marwen Extra-Config ///////////////////////////////////////////////////////////////////////////////////
 grails.plugin.springsecurity.useBasicAuth = false
+grails.plugin.springsecurity.rejectIfNoRule = true
+grails.plugin.springsecurity.rejectPublicInvocations = false
 grails.plugin.springsecurity.auth.loginFormUrl="/login"
 	grails.plugin.springsecurity.failureHandler.defaultFailureUrl="/login" // with erros must be catched in the view
 	grails.plugin.springsecurity.failureHandler.authenticationFailureUrl="/login" // not sure

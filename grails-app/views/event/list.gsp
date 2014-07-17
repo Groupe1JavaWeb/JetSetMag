@@ -7,10 +7,10 @@
 	</head>
 	<body>
 		<div class="m-b-md">
-			<h3 class="m-b-none">Users Management</h3>
+			<h3 class="m-b-none">Events Management</h3>
 		</div>
 		<section class="panel panel-default">
-		    <header class="panel-heading"> Users List </header>
+		    <header class="panel-heading"> Events List </header>
 		    	<div class="row wrapper">
 			        <div class="col-sm-5 m-b-xs">
 		                 <select class="input-sm form-control input-s-sm inline v-middle" id="selectAction" >
@@ -22,9 +22,9 @@
 			        </div>
 			        <div class="col-sm-4 m-b-xs"></div>
                  	<div class="col-sm-3">                 			
-                   		<g:form url="[action:'search',controller:'home']" method="POST" >
+                   		<g:form url="[action:'search',controller:'event']" method="POST" >
                     		<div class="input-group">
-                       			<input type="text" name="searchField" id="searchField" class="input-sm form-control" placeholder="Search for specific user detail !" >
+                       			<input type="text" name="searchField" id="searchField" class="input-sm form-control" placeholder="Search for specific event detail !" >
                              		<span class="input-group-btn">
                               			<button class="btn btn-sm btn-default" type="button">Go!</button>
                              		</span>
@@ -42,35 +42,35 @@
                                		<i></i>
                             	</label> -->
                         	</th>
-                      		<g:sortableColumn property="username" title="Username" />
-                    		<g:sortableColumn property="lastName" title="Last Name" />
-                       		<g:sortableColumn property="firstName" title="First Name" />
-                        	<g:sortableColumn property="email" title="Email" />
+                      		<g:sortableColumn property="title" title="Title" />
+                    		<g:sortableColumn property="description" title="Description" />
+                       		<g:sortableColumn property="startDate" title="Start Date" />
+                        	<g:sortableColumn property="endDate" title="End Date" />
                 			<g:sortableColumn property="enabled" title="Enabled" />
                   		</tr>
 						</thead>
                         	<tbody>
-                           	<g:each in="${usersList}" var="user" >
+                           	<g:each in="${eventsList}" var="event" >
                                	<tr>
                                   	<td>
                                        	<label class="checkbox m-n i-checks">
-                                         	<input type="checkbox" name="userChecked[]" value="${user.id}" class="who" >
+                                         	<input type="checkbox" name="eventChecked[]" value="${event.id}" class="which" >
                                          		<i></i>
                                         	</label>
                                    	</td>
-                                    	<td>${user.username}</td>
-                                     	<td>${user.lastName}</td>
-                                 		<td>${user.firstName}</td>
-                                 		<td>${user.email}</td>
+                                    	<td>${event.title}</td>
+                                     	<td>${event.description.substring(0,25)}</td>
+                                 		<td>${event.startDate}</td>
+                                 		<td>${event.endDate}</td>
                                   		<td>
-                                       		<g:if test="${user.enabled==true}">
-                                       			<a href="#" class="active" data-toggle="class" onClick="changeState('${user.id}')" >
+                                       		<g:if test="${event.enabled==true}">
+                                       			<a href="#" class="active" data-toggle="class" onClick="changeState('${event.id}')" >
                                        				<i class="fa fa-check text-success text-active"></i>
                                        				<i class="fa fa-times text-danger text"></i>
                                        			</a>
                                        		</g:if>
                                        		<g:else>
-												<a href="#" data-toggle="class" onClick="changeState('${user.id}')" >
+												<a href="#" data-toggle="class" onClick="changeState('${event.id}')" >
 													<i class="fa fa-check text-success text-active"></i>
 													<i class="fa fa-times text-danger text"></i>
 												</a>
@@ -85,17 +85,11 @@
 			<footer class="panel-footer">
 	         	<div class="row">
 		             <div class="col-sm-4 hidden-xs">
-		                 <!--<select class="input-sm form-control input-s-sm inline v-middle" id="selectAction" style="display:none;" >
-		                     <option value="show" selected >Show</option>
-		                     <option value="edit">Edit</option>
-		                     <option value="delete">Delete</option>
-		                 </select>
-		                 <button class="btn btn-sm btn-default" onClick="applyAction();">Apply</button>-->
 		             </div>
             		<div class="col-sm-4 text-center">
 	             	</div>
 	            	 <div class="col-sm-4 text-right text-center-xs">
-	                 	<g:paginate controller="user" action="list" maxsteps="0" next="Next" prev="Prev" total="${usersCount}" />
+	                 	<g:paginate controller="event" action="list" maxsteps="0" next="Next" prev="Prev" total="${eventsCount}" />
 	                </div>
 	            </div>
 			</footer>
@@ -110,7 +104,7 @@
 		<script>
 			function countChecked(){
 				var cpt = 0;
-				$("input.who").each(function(){
+				$("input.which").each(function(){
 					if(this.is(":checked")){
 						cpt++;
 					}
@@ -121,23 +115,23 @@
 					if( action=="show" || action=="edit" ){
 						if(countChecked()==1){
 							var action = $("select#selectAction option:selected").val();
-							var whoChecked = $("").val()
-							window.location.href="${request.contextPath}/user/"+action; // show // edit
+							var whichChecked = $("").val()
+							window.location.href="${request.contextPath}/event/"+action; // show // edit
 						}else{
-							alert("To select Edit/Show action, you must select one user !");
+							alert("To select Edit/Show action, you must select one event !");
 						}
 					}else{
 						var action = $("select#selectAction option:selected").val();
-						var whoChecked = $("").val()
-						window.location.href="${request.contextPath}/user/"+action; // delete
+						var whichChecked = $("").val()
+						window.location.href="${request.contextPath}/event/"+action; // delete
 					}
 				}else{
-					alert("You must choose at least one user !");
+					alert("You must choose at least one event !");
 				}
 			}
-			function changeState(who){
-				if(who>0){
-					$.post( "changeState", { who: who }, function( data ) {
+			function changeState(which){
+				if(which>0){
+					$.post( "started", { which: which }, function( data ) {
 						//console.log( "success" );
 					}).fail(function() {
 						//console.log( "error" );
@@ -145,7 +139,7 @@
 				}
 			}
 			$( document ).ready(function() {
-				$("input.who").each(function(){				
+				$("input.which").each(function(){				
 					$(this).bind("click",function(){
 						if(this.is(":checked")){
 							if(countChecked()>1){

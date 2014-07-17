@@ -6,10 +6,6 @@
 	<body>
 
 
-	
-gkdeghdsklhdsm*nh*dsnhkdnhmdfhDjhdo
-
-
 	<!-- Bootstrap -->
 	<!-- App -->
 	<script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>

@@ -2,7 +2,7 @@
 <html lang="en" class="app js no-touch no-android chrome no-firefox no-iemobile no-ie no-ie8 no-ie10 no-ie11 no-ios no-ios7 ipad">
 <head>
 <meta charset="utf-8" />
-<title><g:layoutTitle default="Jet7 Magazine | Votre Jet à la une" /></title>
+<title><g:layoutTitle default="Jet7 Magazine | Votre Jet @ la #1" /></title>
 <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<link rel="stylesheet" href="${resource(dir:'js/jPlayer',file:'jplayer.flat.css')}" type="text/css" />
@@ -25,7 +25,7 @@
 <a href="${request.contextPath}" class="navbar-brand text-lt">
 <i class="icon-earphones"></i>
 <img src="${resource(dir:'images',file:'logo.png')}" alt="." class="hide">
-<span class="hidden-nav-xs m-l-sm">Jet7 MaG</span>
+<span class="hidden-nav-xs m-l-sm">JeT 7 MaG</span>
 </a>
 <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
 <i class="icon-settings"></i>
@@ -71,13 +71,13 @@
 <span class="pull-left thumb-sm">
 <img src="${resource(dir:'images',file:'a0.png')}" alt="..." class="img-circle">
 </span>
-<span class="media-body block m-b-none"> news 1
+<span class="media-body block m-b-none"> news #1
 <br>
 <small class="text-muted">10 minutes ago</small>
 </span>
 </a>
 <a href="${request.contextPath}" class="media list-group-item">
-<span class="media-body block m-b-none"> evenement 2
+<span class="media-body block m-b-none"> event #2
 <br>
 <small class="text-muted">1 hour ago</small>
 </span>
@@ -141,31 +141,31 @@
 <!-- nav -->
 <nav class="nav-primary hidden-xs">
 <ul class="nav bg clearfix">
-<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> A la 7 </li>
+<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> @7 Mag </li>
 <li>
-<a href="${request.contextPath}">
-<i class="icon-globe icon text-success"></i>
-<span class="font-bold">7News</span>
-</a>
+	<a href="${request.contextPath}">
+		<i class="icon-globe icon text-success"></i>
+		<span class="font-bold">7News</span>
+	</a>
 </li>
 <li>
-<a href="${request.contextPath}">
-<i class="icon-book-open icon text-primary-lter"></i>
-<b class="badge bg-primary pull-right">6</b>
-<span class="font-bold">7Events</span>
-</a>
+	<g:link controller="Event" action="list" >
+		<i class="icon-book-open icon text-primary-lter"></i>
+		<b class="badge bg-danger pull-right">7</b>
+		<span class="font-bold">7Events</span>
+	</g:link>
 </li>
 <li>
-<a href="${request.contextPath}">
-<i class="icon-music-tone-alt icon text-info"></i>
-<span class="font-bold">7Audio</span>
-</a>
+	<a href="${request.contextPath}">
+		<i class="icon-music-tone-alt icon text-info"></i>
+		<span class="font-bold">7Audio</span>
+	</a>
 </li>
 <li>
-<a href="${request.contextPath}" data-target="#content" data-el="#bjax-el" data-replace="true">
-<i class="icon-social-youtube icon text-primary"></i>
-<span class="font-bold">7Video</span>
-</a>
+	<a href="${request.contextPath}" data-target="#content" data-el="#bjax-el" data-replace="true">
+		<i class="icon-social-youtube icon text-primary"></i>
+		<span class="font-bold">7Video</span>
+	</a>
 </li>
 <li class="m-b hidden-nav-xs"></li>
 </ul>
@@ -192,17 +192,24 @@
 	            </li>
 	            </sec:ifAnyGranted>
 	            <li>
-	                <a href="blog.html" class="auto">
+	                <a href="#" class="auto">
 	                	<b class="badge bg-info pull-right">369</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
 	                    <span>News</span>
 	                </a>
 	            </li>
 	            <li>
-	                <a href="invoice.html" class="auto">
+	                <g:link controller="Event" action="list" class="auto" >
+	                	<b class="badge bg-danger pull-right">7</b>
+	                    <i class="fa fa-angle-right text-xs"></i>
+	                    <span>Events</span>
+	                </g:link>
+	            </li>
+	            <li>
+	                <a href="#" class="auto">
 	                	<b class="badge pull-right">0</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
-	                    <span>Media</span>
+	                    <span>Medias</span>
 	                </a>
 	            </li>
 	        </ul>

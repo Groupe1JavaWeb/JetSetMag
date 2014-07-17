@@ -87,16 +87,28 @@ class UserController {
 		}
 	}
 	
-	/*@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def create() {
 		if(request.post){
-			def newUser = new User()
-			User.create User,true
-			redirect(controller:'User',action:'list')
+		    /*def userInstance = new User(params)
+		    if (!userInstance.save(flush: true)) {
+		        render(view: "create", model: [userInstance: userInstance])
+		        return
+		    }
+		
+		    if (!userInstance.authorities.contains(Role.findByAuthority(params.role))) {
+		        UserRole.create userInstance, Role.findByAuthority(params.role)
+		    }else{
+		    	UserRole.create userInstance, Role.findByAuthority("ROLE_USER")
+		    }
+		
+		    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+		    redirect(action: "show", id: userInstance.id)*/
+			redirect(action: "list")
 		}else{
 			render view : 'create'
 		}
 		render view : 'index'
-	}*/
+	}
 
 }

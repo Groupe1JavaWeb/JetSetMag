@@ -86,6 +86,7 @@ class UserRole implements Serializable {
    }
 
    static mapping = {
+	  table 'j7m_users_roles'
       id composite: ['role', 'user']
       version false
    }
