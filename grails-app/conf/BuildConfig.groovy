@@ -69,7 +69,7 @@ grails.project.dependency.resolution = {
 
 		compile ":avatar:0.6.3"
 		compile ":elasticsearch:0.0.3.1"
-		compile ":mongodb:3.0.1"
+		//compile ":mongodb:3.0.1"
 		compile ':spring-security-core:2.0-RC4' // securité de l'application <==> (formerly Acegi Security)
 		
         // plugins needed at runtime but not for compilation

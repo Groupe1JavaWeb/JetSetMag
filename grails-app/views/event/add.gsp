@@ -13,7 +13,7 @@
 		<section class="panel panel-default">
 		    <header class="panel-heading font-bold">New Event </header>
 		    <div class="panel-body">
-		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="checkEventForm();" >
+		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
 		                <input type="hidden" name="description" value="" />
 		                <div class="form-group">
 		                    <label class="col-sm-2 control-label">Title</label>
@@ -27,7 +27,7 @@
 		                <div class="form-group">                                                                                                                                                                                                                                                       <label class="col-sm-2 control-label">Started</label>
 			                <div class="col-sm-10">
 			                    <label class="switch">
-			                        <input type="checkbox" id="enabled" name="enabled" checked >
+			                        <input type="checkbox" id="enabled" name="enabled" checked value="true" >
 			                            <span></span>
 			                        </label>
 			                    </div>
@@ -304,7 +304,7 @@
 			function checkEventForm(){
 				var description = $("div#description").html();
 				var startDate = $("input#startDate").val();
-				var startDate = $("input#startDate").val();
+				var endDate = $("input#endDate").val();
 				if(!$.trim(startDate).length){
 					alert("You must choose the starting date of this event !");
 					return false;
@@ -314,8 +314,11 @@
 					return false;
 				}
 				today = dates.convert(getToday()); // string to date
+				//alert(today);
 				startDate = dates.convert(startDate); // string to date
+				//alert(startDate);
 				endDate = dates.convert(endDate); // string to date
+				//alert(endDate);
 				if(dates.compare(startDate,today)==-1){
 					alert("You must choose a starting date equal or higher than "+today+" !");
 					return false;
@@ -324,8 +327,8 @@
 					alert("You must choose an ending date equal or higher than "+today+" !");
 					return false;
 				}
-				if(dates.compare(startDate,endDate)==-1){
-					alert("You must choose a starting date equals or higher then the ending date !");
+				if(dates.compare(endDate,startDate)==-1){
+					alert("You must choose an ending date equals or higher then the starting date !");
 					return false;
 				}
 				if(!$.trim(description).length){
@@ -334,8 +337,6 @@
 				}else{
 					$("input[name='description']").val(description);
 				}
-				
-				return true;
 			}
 			$(document).ready( function() {
 				$('input#startDate,input#endDate').each(function(){$(this).val(getToday());});

@@ -149,7 +149,7 @@
 	</a>
 </li>
 <li>
-	<g:link controller="Event" action="list" >
+	<g:link controller="Event" action="index" >
 		<i class="icon-book-open icon text-primary-lter"></i>
 		<b class="badge bg-danger pull-right">7</b>
 		<span class="font-bold">7Events</span>

@@ -13,7 +13,7 @@
 		<section class="panel panel-default">
 		    <header class="panel-heading font-bold">New Event </header>
 		    <div class="panel-body">
-		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="checkEventForm();" >
+		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
 		        		<input type="hidden" name="id" id="id" value="${event.id}" />
 		        		<input type="hidden" name="description" value="${event.description}" />
 		                <div class="form-group">
@@ -307,7 +307,7 @@
 			function checkEventForm(){
 				var description = $("div#description").html();
 				var startDate = $("input#startDate").val();
-				var startDate = $("input#startDate").val();
+				var endDate = $("input#endDate").val();
 				if(!$.trim(startDate).length){
 					alert("You must choose the starting date of this event !");
 					return false;
@@ -317,8 +317,11 @@
 					return false;
 				}
 				today = dates.convert(getToday()); // string to date
+				//alert(today);
 				startDate = dates.convert(startDate); // string to date
+				//alert(startDate);
 				endDate = dates.convert(endDate); // string to date
+				//alert(endDate);
 				if(dates.compare(startDate,today)==-1){
 					alert("You must choose a starting date equal or higher than "+today+" !");
 					return false;
@@ -337,7 +340,6 @@
 				}else{
 					$("input[name='description']").val(description);
 				}
-				return true;
 			}
 			$(document).ready( function() {
 			    //$('input#startDate,input#endDate').each(function(){$(this).val(new Date(getToday()));});

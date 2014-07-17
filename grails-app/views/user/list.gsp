@@ -9,6 +9,7 @@
 		<div class="m-b-md">
 			<h3 class="m-b-none">Users Management</h3>
 		</div>
+		<g:if test="${usersCount>0}" >
 		<section class="panel panel-default">
 		    <header class="panel-heading"> Users List </header>
 		    	<div class="row wrapper">
@@ -100,6 +101,12 @@
 	            </div>
 			</footer>
 	    </section>
+		</g:if>
+		<g:else>
+			<div class="alert alert-warning">
+				<i class="fa fa-info-sign"></i><strong> INFO </strong> Everyone is missing !
+			</div>
+		</g:else>
 		<!-- Bootstrap -->
 		<!-- App -->
 		<script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
@@ -110,26 +117,27 @@
 		<script>
 			function countChecked(){
 				var cpt = 0;
-				$("input.who").each(function(){
-					if(this.is(":checked")){
+				$(".who").each(function(){
+					if($(this).is(':checked')){
+					//if($(this).prop('checked')){
+					//if($(this).attr('checked')){
 						cpt++;
 					}
 				});
+				return cpt;
 			}
 			function applyAction(){
-				if(countChecked()>0){
+				var action = $("select#selectAction option:selected").val();
+				var whoChecked = $("input[name='userChecked[]']").val();
+				if(countChecked()>0){					
 					if( action=="show" || action=="edit" ){
 						if(countChecked()==1){
-							var action = $("select#selectAction option:selected").val();
-							var whoChecked = $("").val()
-							window.location.href="${request.contextPath}/user/"+action; // show // edit
+							window.location.href="${request.contextPath}/user/"+action+"/id="+whoChecked ; // show // edit just one user
 						}else{
 							alert("To select Edit/Show action, you must select one user !");
 						}
 					}else{
-						var action = $("select#selectAction option:selected").val();
-						var whoChecked = $("").val()
-						window.location.href="${request.contextPath}/user/"+action; // delete
+						window.location.href="${request.contextPath}/user/delete?usersToDelete="+whoChecked ; // delete on or a group of users
 					}
 				}else{
 					alert("You must choose at least one user !");
@@ -146,8 +154,8 @@
 			}
 			$( document ).ready(function() {
 				$("input.who").each(function(){				
-					$(this).bind("click",function(){
-						if(this.is(":checked")){
+					$(this).change(function() {
+						if($(this).is(':checked')){
 							if(countChecked()>1){
 								$("select#selectAction option:eq(2)").show();
 							}else{

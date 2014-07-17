@@ -5,8 +5,10 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured(['permitAll'])
 class EventController {
 
-    def index() { 
-		render view : 'list'	
+	//static allowedMethods = [show: "GET", list: "GET"]
+	
+	def index() { 
+		render view : 'index'	
 	}
 	
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_MEMBER'])
@@ -19,15 +21,16 @@ class EventController {
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_MEMBER'])
 	def create() {
 		if(request.post){
-		    /*def eventInstance = new Event(params)
-		    if (!eventInstance.save(flush: true)) {
-		        render(view: "create", model: [eventInstance: eventInstance])
-		        return
+			if(params.enabled=="on"){params.enabled=true;}else{params.enabled=false;}
+		    def event = new Event(title:params.title,description:params.description,enabled:params.enabled)
+		    if(event.save(flush: true)) {
+				flash.message = " A new event was added successfully !"
+				redirect(controller:'Event',action:'list', model : [event:event])
+		    }else{
+				flash.error = " A error was detected !"
+				render view : 'add', model : [event:event]
 		    }
-		
-		    flash.message = message(code: 'default.created.message', args: [message(code: 'event.label', default: 'Event'), eventInstance.id])
-		    redirect(action: "show", id: eventInstance.id)*/
-			redirect(action: "list")
+			render view: 'list', model : [event:event]
 		}else{
 			render view : 'add'
 		}
@@ -36,6 +39,11 @@ class EventController {
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_MEMBER'])
 	def delete() {
 		if(request.post){
+			if(Event.deleteAll(params.id)){
+				flash.message = " The event was deleted successfully !"
+			}else{
+				flash.error = " A error was detected !"
+			}			
 			redirect(controller:'Event',action:'list')
 		}else{
 			flash.error = "No event selected !"
@@ -43,20 +51,36 @@ class EventController {
 		}
 	}
 	
-	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_MEMBER'])
+	@Secured(['permitAll'])
 	def show() {
-		if(request.post){
-			redirect(controller:'Event',action:'list')
-		}else{
-			flash.error = "No event selected !"
+		def event = Event.findById(params.id)
+		if(event){
+			render view : 'show',model :[event:event]
+		}
+		else{
+			flash.error = "No event found !"
 			redirect(controller:'Event',action:'list')
 		}
 	}
 
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_MEMBER'])
-	def edit() {
+	def edit() {		
 		if(request.post){
-			redirect(controller:'Event',action:'list')
+			if(request.method == 'GET'){
+				def event = Event.get(params.id)
+				if(event){					
+					render view : 'edit',model :[event:event]
+				}
+				else{
+					flash.error = "No event found !"
+					redirect(controller:'Event',action:'list')
+				}
+			}else{			
+				if(params.enabled=="on"){params.enabled=true;}else{params.enabled=false;}
+				if(Event.save(id:params.id,title:params.title,description:params.description,enabled:params.enabled)){
+					redirect(controller:'Event',action:'edit',model:[event:event])
+				}
+			}
 		}else{
 			flash.error = "No event selected !"
 			redirect(controller:'Event',action:'list')

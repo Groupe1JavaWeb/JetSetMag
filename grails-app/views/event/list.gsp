@@ -9,6 +9,7 @@
 		<div class="m-b-md">
 			<h3 class="m-b-none">Events Management</h3>
 		</div>
+        <g:if test="${eventsCount>0}" >
 		<section class="panel panel-default">
 		    <header class="panel-heading"> Events List </header>
 		    	<div class="row wrapper">
@@ -19,6 +20,7 @@
 		                     <option value="delete" class="OptDelete" >Delete</option>
 		                 </select>
 		                 <button class="btn btn-sm btn-default" onClick="applyAction();" id="applyAction" >Apply</button>
+		                 <g:link class="btn btn-info btn-sm" controller='Event' action='create' >New Event</g:link>
 			        </div>
 			        <div class="col-sm-4 m-b-xs"></div>
                  	<div class="col-sm-3">                 			
@@ -32,7 +34,7 @@
                        	</g:form>
                    	</div>
                    	</div>
-                   <div class="table-responsive">
+                   	<div class="table-responsive">
                        <table class="table table-striped b-t b-light">
                        	<thead>
                        	<tr>			                                        
@@ -58,8 +60,8 @@
                                          		<i></i>
                                         	</label>
                                    	</td>
-                                    	<td>${event.title}</td>
-                                     	<td>${event.description.substring(0,25)}</td>
+                                    	<td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" >${event.title}</td>
+                                     	<td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" >${event.description.decodeHTML()}</td><!--  encodeAsHTML() // decodeHTML()-->
                                  		<td>${event.startDate}</td>
                                  		<td>${event.endDate}</td>
                                   		<td>
@@ -93,7 +95,13 @@
 	                </div>
 	            </div>
 			</footer>
-	    </section>
+		</section>
+		</g:if>
+		<g:else>
+			<div class="alert alert-info">
+				<i class="fa fa-info-sign"></i><strong> INFO </strong> It's so boring, there is no saved events ! please add a new one &nbsp;&nbsp; <g:link controller="Event" action="create" class="btn btn-primary btn-sm">New Event</g:link>
+			</div>
+		</g:else>
 		<!-- Bootstrap -->
 		<!-- App -->
 		<script type="text/javascript" src="${resource(dir:'js',file:'app.v1.js')}"></script>
@@ -104,26 +112,27 @@
 		<script>
 			function countChecked(){
 				var cpt = 0;
-				$("input.which").each(function(){
-					if(this.is(":checked")){
+				$(".which").each(function(){
+					if($(this).is(':checked')){
+					//if($(this).prop('checked')){
+					//if($(this).attr('checked')){
 						cpt++;
 					}
 				});
+				return cpt;
 			}
 			function applyAction(){
-				if(countChecked()>0){
+				var action = $("select#selectAction option:selected").val();
+				var whichChecked = $("input[name='eventChecked[]']").val();
+				if(countChecked()>0){					
 					if( action=="show" || action=="edit" ){
 						if(countChecked()==1){
-							var action = $("select#selectAction option:selected").val();
-							var whichChecked = $("").val()
-							window.location.href="${request.contextPath}/event/"+action; // show // edit
+							window.location.href="${request.contextPath}/event/"+action+"?id="+whichChecked ; // show // edit just one event
 						}else{
 							alert("To select Edit/Show action, you must select one event !");
 						}
 					}else{
-						var action = $("select#selectAction option:selected").val();
-						var whichChecked = $("").val()
-						window.location.href="${request.contextPath}/event/"+action; // delete
+						window.location.href="${request.contextPath}/event/delete?eventsToDelete="+whichChecked ; // delete on or a group of events
 					}
 				}else{
 					alert("You must choose at least one event !");
@@ -139,11 +148,11 @@
 				}
 			}
 			$( document ).ready(function() {
-				$("input.which").each(function(){				
-					$(this).bind("click",function(){
-						if(this.is(":checked")){
+				$(".which").each(function(){
+					$(this).change(function() {
+						if($(this).is(':checked')){
 							if(countChecked()>1){
-								$("select#selectAction option:eq(2)").show();
+								$("select#selectAction option:eq(2)").show(); // delete
 							}else{
 								$("select#selectAction option:eq(2)").hide();
 							}
