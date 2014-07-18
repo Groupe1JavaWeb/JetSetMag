@@ -24,11 +24,11 @@
 			        </div>
 			        <div class="col-sm-4 m-b-xs"></div>
                  	<div class="col-sm-3">                 			
-                   		<g:form url="[action:'search',controller:'event']" method="POST" >
+                   		<g:form url="[action:'search',controller:'Event']" method="POST" >
                     		<div class="input-group">
-                       			<input type="text" name="searchField" id="searchField" class="input-sm form-control" placeholder="Search for specific event detail !" >
+                       			<input type="text" name="searchField" id="searchField" class="input-sm form-control" placeholder="Search for specific event details !" >
                              		<span class="input-group-btn">
-                              			<button class="btn btn-sm btn-default" type="button">Go!</button>
+                              			<button class="btn btn-sm btn-default" type="submit">Go!</button>
                              		</span>
                         	</div>
                        	</g:form>

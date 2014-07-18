@@ -2,13 +2,11 @@ package com.jetsetmag.hangout
 
 import java.awt.TexturePaintContext.Byte;
 
-import com.mysql.jdbc.Blob;
+import com.jetsetmag.auth.User;
 
 class Event {
 
 	static searchable = true
-	
-	//static scaffold = true 
 	
 	String title
 	Date endDate = new Date()
@@ -21,6 +19,8 @@ class Event {
 	boolean restricted = false
 	String cover
 	String coverType
+	
+	static belongsTo = [ user : User]
 
 	
     static constraints = {

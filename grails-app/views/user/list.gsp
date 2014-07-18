@@ -20,14 +20,15 @@
 		                     <option value="delete" class="OptDelete" >Delete</option>
 		                 </select>
 		                 <button class="btn btn-sm btn-default" onClick="applyAction();" id="applyAction" >Apply</button>
+		                 <!--<g:link class="btn btn-info btn-sm" controller='User' action='create' >New User</g:link>-->
 			        </div>
 			        <div class="col-sm-4 m-b-xs"></div>
                  	<div class="col-sm-3">                 			
-                   		<g:form url="[action:'search',controller:'home']" method="POST" >
+                   		<g:form url="[action:'search',controller:'User']" method="POST" >
                     		<div class="input-group">
                        			<input type="text" name="searchField" id="searchField" class="input-sm form-control" placeholder="Search for specific user detail !" >
                              		<span class="input-group-btn">
-                              			<button class="btn btn-sm btn-default" type="button">Go!</button>
+                              			<button class="btn btn-sm btn-default" type="submit">Go!</button>
                              		</span>
                         	</div>
                        	</g:form>
@@ -47,37 +48,100 @@
                     		<g:sortableColumn property="lastName" title="Last Name" />
                        		<g:sortableColumn property="firstName" title="First Name" />
                         	<g:sortableColumn property="email" title="Email" />
+                        	<g:sortableColumn property="role" title="Role" />
                 			<g:sortableColumn property="enabled" title="Enabled" />
+                			<g:sortableColumn property="accountExpired" title="Account Expired" />
+                			<g:sortableColumn property="accountLocked" title="Account Locked" />
+                			<g:sortableColumn property="passwordExpired" title="Password Expired" />
                   		</tr>
 						</thead>
                         	<tbody>
                            	<g:each in="${usersList}" var="user" >
-                               	<tr>
-                                  	<td>
-                                       	<label class="checkbox m-n i-checks">
-                                         	<input type="checkbox" name="userChecked[]" value="${user.id}" class="who" >
-                                         		<i></i>
-                                        	</label>
-                                   	</td>
-                                    	<td>${user.username}</td>
-                                     	<td>${user.lastName}</td>
-                                 		<td>${user.firstName}</td>
-                                 		<td>${user.email}</td>
-                                  		<td>
-                                       		<g:if test="${user.enabled==true}">
-                                       			<a href="#" class="active" data-toggle="class" onClick="changeState('${user.id}')" >
-                                       				<i class="fa fa-check text-success text-active"></i>
-                                       				<i class="fa fa-times text-danger text"></i>
-                                       			</a>
-                                       		</g:if>
-                                       		<g:else>
-												<a href="#" data-toggle="class" onClick="changeState('${user.id}')" >
-													<i class="fa fa-check text-success text-active"></i>
-													<i class="fa fa-times text-danger text"></i>
-												</a>
-                                       		</g:else>
-                                    	</td>
-                                   </tr>
+                           		<g:if test="${ user.getAuthorities().id[0]>session.currentUser.getAuthorities().id[0] && user.id!=session.currentUser.id }" >
+	                               	<tr>
+	                                  	<td>
+	                                       	<label class="checkbox m-n i-checks">
+	                                         	<input type="checkbox" name="userChecked[]" value="${user.id}" class="who" >
+	                                         		<i></i>
+	                                        	</label>
+	                                   	</td>
+	                                    	<td>${user.username}</td>
+	                                     	<td>${user.lastName}</td>
+	                                 		<td>${user.firstName}</td>
+	                                 		<td>${user.email}</td>
+	                                 		<td>
+	                                 			<g:if test="${user.getAuthorities().authority[0]=='ROLE_SUPERADMIN'}" >
+	                                 				<span class="label bg-primary">Super</span>
+	                                 			</g:if>
+	                                 			<g:elseif test="${user.getAuthorities().authority[0]=='ROLE_ADMIN'}" >
+	                                 				<span class="label bg-success">Admin</span>
+	                                 			</g:elseif>
+	                                 			<g:elseif test="${user.getAuthorities().authority[0]=='ROLE_MEMBER'}" >
+	                                 				<span class="label bg-info">Member</span>
+	                                 			</g:elseif>
+	                                 			<g:else test="${user.getAuthorities().authority[0]=='ROLE_USER'}" >
+	                                 				<span class="label bg-warning">Guest</span>
+	                                 			</g:else>
+													 
+	                                 		</td>
+	                                  		<td>
+	                                       		<g:if test="${user.enabled==true}">
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeState('${user.id}')" >
+	                                       				<i class="fa fa-check text-success text-active"></i>
+	                                       				<i class="fa fa-times text-danger text"></i>
+	                                       			</a>
+	                                       		</g:if>
+	                                       		<g:else>
+													<a href="#" data-toggle="class" onClick="changeState('${user.id}')" >
+														<i class="fa fa-check text-success text-active"></i>
+														<i class="fa fa-times text-danger text"></i>
+													</a>
+	                                       		</g:else>
+	                                    	</td>
+	                                  		<td>
+	                                       		<g:if test="${user.accountExpired==true}">
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeAccountExpiredState('${user.id}')" >
+	                                       				<i class="fa fa-check text-success text-active"></i>
+	                                       				<i class="fa fa-times text-danger text"></i>
+	                                       			</a>
+	                                       		</g:if>
+	                                       		<g:else>
+													<a href="#" data-toggle="class" onClick="changeAccountExpiredState('${user.id}')" >
+														<i class="fa fa-check text-success text-active"></i>
+														<i class="fa fa-times text-danger text"></i>
+													</a>
+	                                       		</g:else>
+	                                    	</td>
+	                                  		<td>
+	                                       		<g:if test="${user.accountLocked==true}">
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeAccountLockedState('${user.id}')" >
+	                                       				<i class="fa fa-check text-success text-active"></i>
+	                                       				<i class="fa fa-times text-danger text"></i>
+	                                       			</a>
+	                                       		</g:if>
+	                                       		<g:else>
+													<a href="#" data-toggle="class" onClick="changeAccountLockedState('${user.id}')" >
+														<i class="fa fa-check text-success text-active"></i>
+														<i class="fa fa-times text-danger text"></i>
+													</a>
+	                                       		</g:else>
+	                                    	</td>
+	                                  		<td>
+	                                       		<g:if test="${user.passwordExpired==true}">
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changePasswordExpiredState('${user.id}')" >
+	                                       				<i class="fa fa-check text-success text-active"></i>
+	                                       				<i class="fa fa-times text-danger text"></i>
+	                                       			</a>
+	                                       		</g:if>
+	                                       		<g:else>
+													<a href="#" data-toggle="class" onClick="changePasswordExpiredState('${user.id}')" >
+														<i class="fa fa-check text-success text-active"></i>
+														<i class="fa fa-times text-danger text"></i>
+													</a>
+	                                       		</g:else>
+	                                    	</td>
+	                                   </tr>
+                                   </g:if>
                                 </g:each>
                       		</tbody>
                   		</table>
@@ -162,9 +226,36 @@
 			function changeState(who){
 				if(who>0){
 					$.post( "changeState", { who: who }, function( data ) {
-						//console.log( "success" );
+						console.log( "success" );
 					}).fail(function() {
-						//console.log( "error" );
+						console.log( "error" );
+					});
+				}
+			}
+			function changeAccountLockedState(who){
+				if(who>0){
+					$.post( "changeAccountLockedState", { who: who }, function( data ) {
+						console.log( "success" );
+					}).fail(function() {
+						console.log( "error" );
+					});
+				}
+			}
+			function changeAccountExpiredState(who){
+				if(who>0){
+					$.post( "changeAccountExpiredState", { who: who }, function( data ) {
+						console.log( "success" );
+					}).fail(function() {
+						console.log( "error" );
+					});
+				}
+			}
+			function changePasswordExpiredState(who){
+				if(who>0){
+					$.post( "changePasswordExpiredState", { who: who }, function( data ) {
+						console.log( "success" );
+					}).fail(function() {
+						console.log( "error" );
 					});
 				}
 			}

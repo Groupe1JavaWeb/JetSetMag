@@ -54,12 +54,12 @@
 <div class="navbar-right ">
 <sec:ifLoggedIn>
 <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-<li class="hidden-xs">
+<!--<li class="hidden-xs">
 <a href="${request.contextPath}" class="dropdown-toggle lt" data-toggle="dropdown">
 <i class="icon-bell"></i>
 <span class="badge badge-sm up bg-danger count">2</span>
 </a>
-<!--<section class="dropdown-menu aside-xl animated fadeInUp">
+<section class="dropdown-menu aside-xl animated fadeInUp">
 <section class="panel bg-white">
 <div class="panel-heading b-light bg-light">
 <strong>You have 
@@ -90,8 +90,8 @@
 <a href="${request.contextPath}notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
 </div>
 </section>
-</section>-->
-</li>
+</section>
+</li>-->
 <li class="dropdown">
 <a href="${request.contextPath}" class="dropdown-toggle bg clear" data-toggle="dropdown">
 <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
@@ -105,15 +105,15 @@
 <a href="${request.contextPath}">Settings</a>
 </li>
 <li>
-<g:link controller="user" action="index" >Profile</g:link>
+<g:link controller="User" action="show" params="[id:session.currentUser.id]" >Profile</g:link>
 </li>
-<li>
+<!--<li>
 <a href="${request.contextPath}">
 <span class="badge bg-danger pull-right">3</span> Notifications 
 </a>
-</li>
+</li>-->
 <li>
-<a href="${request.contextPath}">Help</a>
+<g:link controller="help" action="index" >Help</g:link>
 </li>
 <li class="divider"></li>
 <li>
@@ -151,7 +151,7 @@
 <li>
 	<g:link controller="Event" action="index" >
 		<i class="icon-book-open icon text-primary-lter"></i>
-		<b class="badge bg-danger pull-right">7</b>
+		<b class="badge bg-danger pull-right">${eventsCount}</b>
 		<span class="font-bold">7Events</span>
 	</g:link>
 </li>
@@ -185,7 +185,7 @@
 	        	<sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN" >
 	            <li>
 	                <g:link controller="User" action="list" class="auto" >
-	                	<b class="badge bg-success pull-right">4</b>
+	                	<b class="badge bg-success pull-right">${usersCount}</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
 	                    <span>Users</span>
 	                </g:link>
@@ -200,7 +200,7 @@
 	            </li>
 	            <li>
 	                <g:link controller="Event" action="list" class="auto" >
-	                	<b class="badge bg-danger pull-right">7</b>
+	                	<b class="badge bg-danger pull-right">${eventsCount}</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
 	                    <span>Events</span>
 	                </g:link>
@@ -238,20 +238,20 @@
 </span>
 </a>
 <ul class="dropdown-menu animated fadeInRight aside text-left">
-<li>
+<!-- <li>
 <span class="arrow bottom hidden-nav-xs"></span>
 <a href="${request.contextPath}">Settings</a>
-</li>
+</li> -->
 <li>
-<a href="${request.contextPath}">Profile</a>
+<g:link controller="User" action="show" params="[id:session.currentUser.id]" >Profile</g:link>
 </li>
-<li>
+<!-- <li>
 <a href="${request.contextPath}">
 <span class="badge bg-danger pull-right">3</span> Notifications 
 </a>
-</li>
+</li> -->
 <li>
-<a href="${request.contextPath}">Help</a>
+<g:link controller="help" action="index" >Help</g:link>
 </li>
 <li class="divider"></li>
 <li>

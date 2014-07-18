@@ -1,5 +1,7 @@
 package com.jetsetmag.auth
 
+import com.jetsetmag.hangout.Event
+
 class User {
 	
 	static searchable = true
@@ -21,6 +23,7 @@ class User {
 	boolean passwordExpired = false	
 	
 	static transients = ['springSecurityService']
+	static hasMany = [ events: Event]
 	
     static constraints = {
 		username	size: 5..15, blank: false, nullable: false, unique: true
@@ -54,6 +57,7 @@ class User {
 	static mapping = {
 		table 'j7m_users'
 		password column: '`password`'
+		//events cascade:'all-delete-orphan'
 	}
 
 }

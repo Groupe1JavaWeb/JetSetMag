@@ -27,7 +27,7 @@
 <div class="line line-lg"></div>
 <div class="text-muted">
 <i class="fa fa-user icon-muted"></i> by 
-<a href="#" class="m-r-sm">Admin</a>
+<a href="#" class="m-r-sm">${event.user.username}</a>
 <i class="fa fa-clock-o icon-muted"></i> Created : ${event.created}&nbsp;&nbsp;
 <i class="fa fa-clock-o icon-muted"></i> Modified : ${event.modified}
 <a href="#" class="m-l-sm">

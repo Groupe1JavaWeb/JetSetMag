@@ -1,10 +1,14 @@
 package com.jetsetmag.auth
 
+import com.jetsetmag.hangout.Event
+import com.jetsetmag.auth.User
+
 import grails.plugin.springsecurity.SecurityConfigType
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 
-@Secured(['permitAll'])
+
+@Secured(['permitAll','IS_AUTHENTICATED'])
 class HomeController {
 
 	/**
@@ -25,7 +29,7 @@ class HomeController {
 			}
 		}
 		
-		render view : 'index' // Session currentUser is ON
+		render view : 'index',model : [usersCount:User.count(),eventsCount:Event.count()] // Session currentUser is ON
 	}
 
 	def login = {
@@ -78,23 +82,54 @@ class HomeController {
 	}
 
 	def search = {
-		if(request.post){ // .get
-			def res = User.search("${params.searchField}") // calling elasticsearch static méthod search
-			if(res.total>0){
-				println "Found ${res.total} result(s)"
-				res.searchResults.each {
+
+		def infoMsg = ""
+		def dangerMsg = ""
+		def successMsg = ""
+		def warningMsg = ""
+		def resU
+		def resE
+		if(request.post){
+			
+			////////// Users Search
+			resU = User.search("${params.searchField}")
+			if(resU.total>0){
+				infoMsg <<  "Found ${res.total} result(s) in users !"
+				resU.searchResults.each {
 					if(it instanceof User) {
-						println it.firstName
+						successMsg << " A user { "+it.username+" } was found !"
 					} else {
-						println it.toString()
+						dangerMsg << " This user { "+it.username+" } was found and protected !"
 					}
 				}
 			}else{
-				println "No result found !"
+				warningMsg << "No user found !"
 			}
-		}else{
-			println "What ?"
+			
+			////////// Events Search
+			resE = Event.search("${params.searchField}")
+			if(resE.total>0){
+				infoMsg <<  "Found ${res.total} result(s) in event !"
+				resE.searchResults.each {
+					if(it instanceof Event) {
+						successMsg << " A event { "+it.title+" } was found !"
+					} else {
+						dangerMsg << " This event { "+it.title+" } was found and protected !"
+					}
+				}
+			}else{
+				warningMsg << "No event found !"
+			}
+			
 		}
+		
+		flash.info=infoMsg
+		flash.danger=dangerMsg
+		flash.success=successMsg
+		flash.warning=warningMsg
+
+		redirect(controller:'Home',action:'index',model : [usersCount:User.count(),eventsCount:Event.count(),resU:resU,resE:resE])
+		
 	}
 
 }

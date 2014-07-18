@@ -1,71 +1,145 @@
 package com.jetsetmag.admin
 
 import com.jetsetmag.auth.User
+import com.jetsetmag.auth.UserRole
 import grails.plugin.springsecurity.annotation.Secured
+import com.jetsetmag.hangout.Event
 
-@Secured(['IS_AUTHENTICATED']) // @Secured(['IS_AUTHENTICATED']) ==> with remember_me ON
+@Secured(['IS_AUTHENTICATED']) // @Secured(['IS_AUTHENTICATED_FULLY']) ==> with remember_me ON
 class UserController {
 	
     @Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def index() {
-		render view : 'index'
+		render view : 'index',model : [usersCount:User.count(),eventsCount:Event.count()]
 	}
 	
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def list() {
-		params.max = Math.min(params.max ? params.int('max') : 5, 100)
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.maxSteps = Math.min(params.maxSteps ? params.int('maxSteps') : 0, 10)
-		render view: 'list', model : [usersList: User.list(params), usersCount: User.count()]
+		render view: 'list', model : [usersList: User.list(params), usersCount: User.count(),usersCount:User.count(),eventsCount:Event.count()]
 	}
 	
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def search() {
-		if(request.post){ // .get
-			def res = User.search("${params.searchField}") // calling elasticsearch
-			//if(res.total>0){
-				println "Found ${res.total} result(s)"
-				res.searchResults.each {
+
+		def infoMsg = ""
+		def dangerMsg = ""
+		def successMsg = ""
+		def warningMsg = ""
+		def resU
+		if(request.post){
+			
+			////////// Users Search
+			resU = User.search("${params.searchField}")
+			if(resU.total>0){
+				infoMsg <<  "Found ${res.total} result(s) in users !"
+				resU.searchResults.each {
 					if(it instanceof User) {
-						println it.firstName
+						successMsg << " A user { "+it.username+" } was found !"
 					} else {
-						println it.toString()
+						dangerMsg << " This user { "+it.username+" } was found and protected !"
 					}
 				}
-			//}else{
-			//	println "No user found !"
-			//	//flash.error = "No user found !"
-			//}
+			}else{
+				warningMsg << "No user found !"
+			}
+			
 		}
+		
+		flash.info=infoMsg
+		flash.danger=dangerMsg
+		flash.success=successMsg
+		flash.warning=warningMsg
+		
+		render view : 'list',model : [usersCount:User.count(),eventsCount:Event.count(),resU:resU]
+		
 	}
 
-	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','IS_AUTHENTICATED']) // Normallement ya que le user lui même qui peut modifier ses propres détails ;) ===> 'IS_AUTHENTICATED'
 	def show() {
-		if(request.post){
-			render view : 'show'
-		}else{
-			flash.error = "No user selected !"
-			redirect(controller:'User',action:'list')
+		def user = User.findById(params.id)
+		if(user){
+			render view : 'show',model :[user:user,usersCount:User.count(),eventsCount:Event.count()]
+		}
+		else{
+			flash.danger = "No user was found to show !"+params.id
+			redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
 		}
 	}
 
-	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','IS_AUTHENTICATED']) // Normallement ya que le user lui même qui peut modifier ses propres détails ;) ===> 'IS_AUTHENTICATED'
 	def edit() {
 		if(request.post){
-			render view : 'edit'
+			if(params.enabled=="on"){params.enabled=true;}else{params.enabled=false;}
+			if(params.accountExpired=="on"){params.accountExpired=true;}else{params.accountExpired=false;}
+			if(params.passwordExpired=="on"){params.passwordExpired=true;}else{params.passwordExpired=false;}
+			if(params.accountLocked=="on"){params.accountLocked=true;}else{params.accountLocked=false;}
+			def user = User.findById(params.id) // session.currentUser.id
+			if(user){
+				user.firstName=params.firstName
+				user.lastName=params.lastName
+				user.enabled=params.enabled
+				user.email=params.email
+				user.accountExpired=params.accountExpired
+				user.passwordExpired=params.passwordExpired
+				user.accountLocked=params.accountLocked
+				if(user.save(flush:true)){ // flush:true
+					flash.message = " The user was successfully updated !"
+					redirect(controller:'User',action:'show',model : [id : params.id, usersCount:User.count(),eventsCount:Event.count()] )
+				}else{
+					flash.danger = "Unable to update this user !"
+					redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+				}
+			}else{
+				flash.danger = "No user was found to update !"
+				redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+			}
 		}else{
-			flash.error = "No user selected !"
-			redirect(controller:'User',action:'list')
+			def user = user.findById(params.id) // session.currentUser.id
+			if(user){
+				render view : 'edit',model :[user:user,usersCount:User.count(),eventsCount:Event.count()]
+			}
+			else{
+				flash.danger = "No user was found to show !"
+				redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+			}
 		}
 	}
 	
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def delete() {
-		if(request.post){
-			redirect(controller:'User',action:'list')
-		}else{
-			flash.error = "No user selected !"
-			redirect(controller:'User',action:'list')
+		def dangerMsg = ""
+		def successMsg = ""
+		def warningMsg = ""
+		params.list('id').each {
+			if(it){
+				def userInstance = User.findById(it)
+				if(userInstance){
+					Collection<UserRole> userRoles = UserRole.findAllByUser(userInstance);
+					if(userRoles*.delete()){ // * => each
+						successMsg << " The user relatifs roles , was successfully deleted !"
+						if(userInstance.delete(flush:true)){ // flush:true ===> Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [com.jetsetmag.hangout.Event#1]
+							successMsg << " The user , was successfully deleted !"
+						}else{
+							//System.out.println("nok deleted")
+							dangerMsg << " A error was detected when deleting this user !"
+						}
+					}else{
+						successMsg << " An error was detected when deleting the user's relatifs roles !"
+					}
+				}else{
+					//System.out.println("ok not found")
+					warningMsg << " This user , was found !"
+				}
+			}
 		}
+		
+		flash.danger=dangerMsg
+		flash.success=successMsg
+		flash.warning=warningMsg
+		
+		redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
 	}
 
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
@@ -81,6 +155,64 @@ class UserController {
 				}
 			}else{
 				return false	
+			}
+		}else{
+			return false
+		}
+	}
+
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
+	def changeAccountLockedState() { // via Ajax Post call
+		if(request.post){
+			def userTo = User.findById(params.who)
+			if(userTo){
+				userTo.accountLocked = !userTo.accountLocked
+				if(userTo.save(flush:true)){
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return false
+		}
+	}
+	
+	
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
+	def changeAccountExpiredState() { // via Ajax Post call
+		if(request.post){
+			def userTo = User.findById(params.who)
+			if(userTo){
+				userTo.accountExpired = !userTo.accountExpired
+				if(userTo.save(flush:true)){
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
+			}
+		}else{
+			return false
+		}
+	}
+	
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
+	def changePasswordExpiredState() { // via Ajax Post call
+		if(request.post){
+			def userTo = User.findById(params.who)
+			if(userTo){
+				userTo.passwordExpired = !userTo.passwordExpired
+				if(userTo.save(flush:true)){
+					return true
+				}else{
+					return false
+				}
+			}else{
+				return false
 			}
 		}else{
 			return false
@@ -104,11 +236,11 @@ class UserController {
 		
 		    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
 		    redirect(action: "show", id: userInstance.id)*/
-			redirect(action: "list")
+			redirect(action: "list",model : [usersCount:User.count(),eventsCount:Event.count()])
 		}else{
-			render view : 'create'
+			render view : 'create',model : [usersCount:User.count(),eventsCount:Event.count()]
 		}
-		render view : 'index'
+		render view : 'index',model : [usersCount:User.count(),eventsCount:Event.count()]
 	}
 
 }
