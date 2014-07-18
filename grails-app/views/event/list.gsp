@@ -60,10 +60,10 @@
                                          		<i></i>
                                         	</label>
                                    	</td>
-                                    	<td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" >${event.title}</td>
-                                     	<td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" >${event.description.decodeHTML()}</td><!--  encodeAsHTML() // decodeHTML()-->
-                                 		<td>${event.startDate}</td>
-                                 		<td>${event.endDate}</td>
+                                    	<td style="width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" >${event.title}</td>
+                                     	<td style="width:600px;max-width:800px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" >${event.description.toString()}</td><!--  .encodeAsRaw() // encodeAsHTML() // decodeHTML() // .substring(0,40) -->
+                                 		<td>${event.startDate.format("yyyy/MM/dd")}</td>
+                                 		<td>${event.endDate.format("yyyy/MM/dd")}</td>
                                   		<td>
                                        		<g:if test="${event.enabled==true}">
                                        			<a href="#" class="active" data-toggle="class" onClick="changeState('${event.id}')" >
@@ -110,6 +110,21 @@
 		<script type="text/javascript" src="${resource(dir:'js/datatables',file:'jquery.csv-0.71.min.js')}"></script>
 		<script type="text/javascript" src="${resource(dir:'js',file:'socket.io-1.0.6.js')}"></script>
 		<script>
+			function getChecked(mode){
+				var checkedStr = "" ;
+				var cpt = 0;
+				$(".which").each(function(){
+					if($(this).is(":checked")){
+						cpt++
+						if(cpt==1){
+							if(mode==2){checkedStr += "id="+$(this).val();}else{checkedStr = $(this).val();}
+						}else{
+							if(mode==2){checkedStr += "&id="+$(this).val();}
+						}
+					}
+				});			
+				return checkedStr;
+			}
 			function countChecked(){
 				var cpt = 0;
 				$(".which").each(function(){
@@ -123,16 +138,17 @@
 			}
 			function applyAction(){
 				var action = $("select#selectAction option:selected").val();
-				var whichChecked = $("input[name='eventChecked[]']").val();
-				if(countChecked()>0){					
+				if(countChecked()>0){
 					if( action=="show" || action=="edit" ){
 						if(countChecked()==1){
-							window.location.href="${request.contextPath}/event/"+action+"?id="+whichChecked ; // show // edit just one event
+							var whichChecked = getChecked(1);
+							window.location.href="${request.contextPath}/event/"+action+"/"+whichChecked ; // show // edit just one event
 						}else{
 							alert("To select Edit/Show action, you must select one event !");
 						}
 					}else{
-						window.location.href="${request.contextPath}/event/delete?eventsToDelete="+whichChecked ; // delete on or a group of events
+						var whichChecked = getChecked(2);
+						window.location.href="${request.contextPath}/event/delete?"+whichChecked ; // delete on or a group of events
 					}
 				}else{
 					alert("You must choose at least one event !");
@@ -147,7 +163,7 @@
 					});
 				}
 			}
-			$( document ).ready(function() {
+			/*$( document ).ready(function() {
 				$(".which").each(function(){
 					$(this).change(function() {
 						if($(this).is(':checked')){
@@ -165,7 +181,7 @@
 						}
 					});
 				});
-			});
+			});*/
 		</script>
 	</body>
 </html>

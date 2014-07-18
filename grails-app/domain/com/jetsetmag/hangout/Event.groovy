@@ -1,5 +1,9 @@
 package com.jetsetmag.hangout
 
+import java.awt.TexturePaintContext.Byte;
+
+import com.mysql.jdbc.Blob;
+
 class Event {
 
 	static searchable = true
@@ -14,14 +18,18 @@ class Event {
 	Date modified = new Date()
 	boolean enabled = true
 	boolean canInvite = false
+	boolean restricted = false
 	String cover
+	String coverType
+
 	
     static constraints = {
 		title			blank: false, nullable: false
 		description 	blank: false, nullable: false
 		startDate		blank: false, nullable: false
 		endDate 		blank: false, nullable: false
-		cover 			nullable: true, blank: true
+		cover			nullable:true, maxSize: 10485760  /* 83886080 b , 10240 Ko , 10 M */
+		coverType		nullable:true	
     }
 	
 	def beforeInsert() {
@@ -35,7 +43,10 @@ class Event {
 	static mapping = {
 		table 'j7m_events'
 		description type: 'text'
-		//cover type: 'image'
+		title type: 'text'
+		sqlType : 'longblob' // ok
+		//cover type: 'image', sqlType : 'longblob' // OK
+		//cover type: 'image' // ok ===> medimumblob
 	}
 	
 }

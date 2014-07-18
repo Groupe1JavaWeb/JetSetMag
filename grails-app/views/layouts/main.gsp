@@ -59,7 +59,7 @@
 <i class="icon-bell"></i>
 <span class="badge badge-sm up bg-danger count">2</span>
 </a>
-<section class="dropdown-menu aside-xl animated fadeInUp">
+<!--<section class="dropdown-menu aside-xl animated fadeInUp">
 <section class="panel bg-white">
 <div class="panel-heading b-light bg-light">
 <strong>You have 
@@ -90,7 +90,7 @@
 <a href="${request.contextPath}notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
 </div>
 </section>
-</section>
+</section>-->
 </li>
 <li class="dropdown">
 <a href="${request.contextPath}" class="dropdown-toggle bg clear" data-toggle="dropdown">
@@ -143,10 +143,10 @@
 <ul class="nav bg clearfix">
 <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> @7 Mag </li>
 <li>
-	<a href="${request.contextPath}">
+	<g:link controller="Home" action="index" >
 		<i class="icon-globe icon text-success"></i>
 		<span class="font-bold">7News</span>
-	</a>
+	</g:link>
 </li>
 <li>
 	<g:link controller="Event" action="index" >
@@ -162,7 +162,7 @@
 	</a>
 </li>
 <li>
-	<a href="${request.contextPath}" data-target="#content" data-el="#bjax-el" data-replace="true">
+	<a href="${request.contextPath}" >
 		<i class="icon-social-youtube icon text-primary"></i>
 		<span class="font-bold">7Video</span>
 	</a>
@@ -269,7 +269,12 @@
 <section class="hbox stretch">
 <section>
 <section class="vbox">
-<section class="scrollable padder">
+<g:if test="${controllerName=="event" && ( actionName=="index" || actionName=="" )}" >
+	<section class="scrollable">
+</g:if>
+<g:else>
+	<section class="scrollable padder">
+</g:else>
 	<g:if test="${flash.error}">
 		<br />
 		<div class="alert alert-error" style="display: block">${flash.error}</div>
@@ -290,7 +295,8 @@
 		<br />
 		<div class="alert alert-warning alert-block" style="display: block">${flash.warning}</div>
 	</g:if>
-	<sec:ifNotLoggedIn>
+	<g:layoutBody />
+	<!-- <sec:ifNotLoggedIn>
 		<br /> 
 		<div class="row m-t-lg m-b-lg">
 			<div class="col-sm-6">
@@ -310,9 +316,7 @@
 				</div>
 			</div>
 		</div>
-	</sec:ifNotLoggedIn>
-	<br />
-	<g:layoutBody />
+	</sec:ifNotLoggedIn> -->
 </section>
 </section>
 </section>

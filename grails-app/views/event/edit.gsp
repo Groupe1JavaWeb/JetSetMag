@@ -13,9 +13,9 @@
 		<section class="panel panel-default">
 		    <header class="panel-heading font-bold">New Event </header>
 		    <div class="panel-body">
-		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
+		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" enctype="multipart/form-data" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
 		        		<input type="hidden" name="id" id="id" value="${event.id}" />
-		        		<input type="hidden" name="description" value="${event.description}" />
+		        		<input type="hidden" name="description" value="${event.description.toString()}" />
 		                <div class="form-group">
 		                    <label class="col-sm-2 control-label">Title</label>
 		                    <div class="col-sm-10">
@@ -28,7 +28,7 @@
 		                <div class="form-group">                                                                                                                                                                                                                                                       <label class="col-sm-2 control-label">Started</label>
 			                <div class="col-sm-10">
 			                    <label class="switch">
-			                        <input type="checkbox" id="enabled" name="enabled" value="${event.enabled}" >
+			                        <input type="checkbox" id="enabled" name="enabled" checked="${event.enabled}" >
 			                            <span></span>
 			                        </label>
 			                    </div>
@@ -38,7 +38,7 @@
 		                <div class="form-group">
 		                    <label class="col-sm-2 control-label">Start Date</label>
 		                    <div class="col-sm-10">
-		                        <input class="input-sm input-s datepicker-input form-control" size="16" id="startDate" name="startDate" type="text" value="${event.startDate}" data-date-format="yyyy/mm/dd"  required >
+		                        <input class="input-sm input-s datepicker-input form-control" size="16" id="startDate" name="startDate" type="text" value="${event.startDate.format("yyyy/MM/dd")}" data-date-format="yyyy/mm/dd"  required >
 		                    </div>
 		                </div>
 		                <br><br>
@@ -46,7 +46,7 @@
 		                <div class="form-group">
 		                	<label class="col-sm-2 control-label">End Date</label>
 		                	<div class="col-sm-10">
-		                    	<input class="input-sm input-s datepicker-input form-control" size="16" id="endDate" name="endDate" type="text" value="${event.endDate}" data-date-format="yyyy/mm/dd"  required >
+		                    	<input class="input-sm input-s datepicker-input form-control" size="16" id="endDate" name="endDate" type="text" value="${event.endDate.format("yyyy/MM/dd")}" data-date-format="yyyy/mm/dd"  required >
 		                    </div>
 		                </div>
 		                <br><br>
@@ -198,14 +198,14 @@
 		                                        </a>
 		                                    </div>
 		                                </div>
-		                           		<div id="description" class="form-control" style="overflow:scroll;height:150px;max-height:150px" contenteditable="true" ><!--  required  -->
-		                           			${event.description}
+		                           		<div id="description" class="form-control" style="overflow:scroll;height:350px;max-height:600px" contenteditable="true" >
+		                           			${event.description.toString().encodeAsRaw()}
 		                           		</div><br>
 		                       </div>
 		                  </div>
 		                  <br><br>
 		                  <div class="line line-dashed b-b line-lg pull-in"></div>
-		                  <div class="form-group">
+		                  <!--<div class="form-group">
 		                      <label class="col-sm-2 control-label">Event's Cover</label>
 		                      <div class="col-sm-10">
 		                          <div class="dropfile visible-lg">
@@ -214,6 +214,14 @@
 		                      </div>
 		                  </div>
 		                  <br><br>
+		                  <div class="line line-dashed b-b line-lg pull-in"></div>-->
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Event's Cover</label>
+								<div class="col-sm-10">
+									<input type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-primary" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;" name="cover" id="cover" >
+							    </div>
+							</div>
+						  <br><br>
 		                  <div class="line line-dashed b-b line-lg pull-in"></div>
 		                  <div class="form-group">
 		                      <div class="col-sm-4 col-sm-offset-2">
@@ -330,7 +338,7 @@
 					alert("You must choose an ending date equal or higher than "+today+" !");
 					return false;
 				}
-				if(dates.compare(startDate,endDate)==-1){
+				if(dates.compare(endDate,startDate)==-1){
 					alert("You must choose a starting date equals or higher then the ending date !");
 					return false;
 				}
@@ -346,7 +354,7 @@
 			    /*$('button#sub').click(function( event ) {
 			    	  event.preventDefault();
 			    }*/
-			});​
+			});
 		</script>
 	</body>
 </html>

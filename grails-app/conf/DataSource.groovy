@@ -13,7 +13,7 @@ hibernate {
 //    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
     cache.region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory' // Hibernate 4
     singleSession = true // configure OSIV singleSession mode
-	format_sql = true
+	//format_sql = true
 }
 
 /*mongo {
@@ -25,8 +25,8 @@ hibernate {
 }*/
 
 log4j = {
-   debug 'org.hibernate.SQL'
-   //trace 'org.hibernate.type'
+   //debug 'org.hibernate.SQL'
+   ////trace 'org.hibernate.type'
 }
 
 // environment specific settings
@@ -43,7 +43,7 @@ environments {
 			url = "jdbc:mysql://localhost/JetSetMag?useUnicode=yes&characterEncoding=UTF-8"
 		 
 			// Print Hibernate SQL to the console
-			logSql = true
+			//logSql = true
 		 
 			// Credentials
 			username = "root"

@@ -13,7 +13,7 @@
 		<section class="panel panel-default">
 		    <header class="panel-heading font-bold">New Event </header>
 		    <div class="panel-body">
-		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
+		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" enctype="multipart/form-data" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
 		                <input type="hidden" name="description" value="" />
 		                <div class="form-group">
 		                    <label class="col-sm-2 control-label">Title</label>
@@ -27,7 +27,7 @@
 		                <div class="form-group">                                                                                                                                                                                                                                                       <label class="col-sm-2 control-label">Started</label>
 			                <div class="col-sm-10">
 			                    <label class="switch">
-			                        <input type="checkbox" id="enabled" name="enabled" checked value="true" >
+			                        <input type="checkbox" id="enabled" name="enabled" checked="true" >
 			                            <span></span>
 			                        </label>
 			                    </div>
@@ -197,12 +197,12 @@
 		                                        </a>
 		                                    </div>
 		                                </div>
-		                           <div id="description" class="form-control" style="overflow:scroll;height:150px;max-height:150px" contenteditable="true" >Your description,place 2 go , Event's duration is Here !!</div><br>
+		                           <div id="description" class="form-control" style="overflow:scroll;height:350px;max-height:600px" contenteditable="true" >Your description, places to visit and all your event's details is Here !!</div><br>
 		                       </div>
 		                  </div>
 		                  <br><br>
 		                  <div class="line line-dashed b-b line-lg pull-in"></div>
-		                  <div class="form-group">
+		                  <!--<div class="form-group">
 		                      <label class="col-sm-2 control-label">Event's Cover</label>
 		                      <div class="col-sm-10">
 		                          <div class="dropfile visible-lg">
@@ -211,6 +211,14 @@
 		                      </div>
 		                  </div>
 		                  <br><br>
+		                  <div class="line line-dashed b-b line-lg pull-in"></div>-->
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Event's Cover</label>
+								<div class="col-sm-10">
+									<input type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-primary" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;" name="cover" id="cover" value="" >
+							    </div>
+							</div>
+						  <br><br>
 		                  <div class="line line-dashed b-b line-lg pull-in"></div>
 		                  <div class="form-group">
 		                      <div class="col-sm-4 col-sm-offset-2">

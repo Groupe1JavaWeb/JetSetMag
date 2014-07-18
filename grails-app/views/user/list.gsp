@@ -115,6 +115,21 @@
 		<script type="text/javascript" src="${resource(dir:'js/datatables',file:'jquery.csv-0.71.min.js')}"></script>
 		<script type="text/javascript" src="${resource(dir:'js',file:'socket.io-1.0.6.js')}"></script>
 		<script>
+			function getChecked(mode){
+				var checkedStr = "" ;
+				var cpt = 0;
+				$(".who").each(function(){
+					if($(this).is(":checked")){
+						cpt++
+						if(cpt==1){
+							if(mode==2){checkedStr += "id="+$(this).val();}else{checkedStr = $(this).val();}
+						}else{
+							if(mode==2){checkedStr += "&id="+$(this).val();}
+						}
+					}
+				});			
+				return checkedStr;
+			}
 			function countChecked(){
 				var cpt = 0;
 				$(".who").each(function(){
@@ -127,17 +142,18 @@
 				return cpt;
 			}
 			function applyAction(){
-				var action = $("select#selectAction option:selected").val();
-				var whoChecked = $("input[name='userChecked[]']").val();
+				var action = $("select#selectAction option:selected").val();				
 				if(countChecked()>0){					
 					if( action=="show" || action=="edit" ){
 						if(countChecked()==1){
-							window.location.href="${request.contextPath}/user/"+action+"/id="+whoChecked ; // show // edit just one user
+							var whoChecked = getChecked(1);
+							window.location.href="${request.contextPath}/user/"+action+"?"+whoChecked ; // show // edit just one user
 						}else{
 							alert("To select Edit/Show action, you must select one user !");
 						}
 					}else{
-						window.location.href="${request.contextPath}/user/delete?usersToDelete="+whoChecked ; // delete on or a group of users
+						var whoChecked = getChecked(2);
+						window.location.href="${request.contextPath}/user/delete?"+whoChecked ; // delete on or a group of users
 					}
 				}else{
 					alert("You must choose at least one user !");
@@ -152,7 +168,7 @@
 					});
 				}
 			}
-			$( document ).ready(function() {
+			/*$( document ).ready(function() {
 				$("input.who").each(function(){				
 					$(this).change(function() {
 						if($(this).is(':checked')){
@@ -170,7 +186,7 @@
 						}
 					});
 				});
-			});
+			});*/
 		</script>
 	</body>
 </html>
