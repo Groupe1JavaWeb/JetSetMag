@@ -1,7 +1,5 @@
 package com.jetsetmag.hangout
 
-import java.awt.TexturePaintContext.Byte;
-
 import com.jetsetmag.auth.User;
 
 class Event {
@@ -19,9 +17,12 @@ class Event {
 	boolean restricted = false
 	String cover
 	String coverType
+	boolean isNews = true
+	boolean canComment = true
+	boolean showComments = true
 	
 	static belongsTo = [ user : User]
-
+	static hasMany = [comments:Comment]
 	
     static constraints = {
 		title			blank: false, nullable: false
@@ -41,12 +42,13 @@ class Event {
 	}
 	 
 	static mapping = {
-		table 'j7m_events'
+		table 'j7m_events_news'
 		description type: 'text'
 		title type: 'text'
 		sqlType : 'longblob' // ok
 		//cover type: 'image', sqlType : 'longblob' // OK
-		//cover type: 'image' // ok ===> medimumblob
+		//cover type: 'image' // ok ===> medimumblob		
+		comments cascade:'all-delete-orphan'
 	}
 	
 }

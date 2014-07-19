@@ -30,210 +30,106 @@
 <a href="#" class="m-r-sm">${event.user.username}</a>
 <i class="fa fa-clock-o icon-muted"></i> Created : ${event.created}&nbsp;&nbsp;
 <i class="fa fa-clock-o icon-muted"></i> Modified : ${event.modified}
+<i class="fa fa-clock-o icon-muted"></i> Tagged As : <g:if test="${event.isNews==true}" ><span class="label bg-info">News</span></g:if><g:else><span class="label bg-primary">Event</span></g:else>
 <a href="#" class="m-l-sm">
-<i class="fa fa-comment-o icon-muted"></i> 3 comments
+<i class="fa fa-comment-o icon-muted"></i> ${event.comments.size()} comments
 </a>
 </div>
 </div>
 </div>
-<h4 class="m-t-lg m-b">3 Comments</h4>
-<!--  
+<sec:ifLoggedIn>
+<g:if test="${event.showComments==true}">
+<h4 class="m-t-lg m-b">${event.comments.size()} Comments</h4>
 <section class="comment-list block">
-    <article id="comment-id-1" class="comment-item">
-        <a class="pull-left thumb-sm">
-            <img src="${resource(dir:'images',file:'a0.png')}" class="img-circle">
-    </a>
-    <section class="comment-body m-b">
-        <header>
-            <a href="#">
-                <strong>John smith</strong>
-            </a>
-            <label class="label bg-info m-l-xs">Editor</label>
-            <span class="text-muted text-xs block m-t-xs"> 24 minutes ago </span>
-        </header>
-        <div class="m-t-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum.</div>
-    </section>
-</article>
-<article id="comment-id-2" class="comment-item comment-reply">
- <a class="pull-left thumb-sm">
-     <img src="${resource(dir:'images',file:'a1.png')}" class="img-circle">
-    </a>
-    <section class="comment-body m-b">
-        <header>
-            <a href="#">
-                <strong>John smith</strong>
-            </a>
-            <label class="label bg-dark m-l-xs">Admin</label>
-            <span class="text-muted text-xs block m-t-xs"> 26 minutes ago </span>
-        </header>
-        <div class="m-t-sm">Lorem ipsum dolor sit amet, consecteter adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</div>
-    </section>
-</article>
-<article id="comment-id-2" class="comment-item">
-    <a class="pull-left thumb-sm">
-        <img src="${resource(dir:'images',file:'a2.png')}" class="img-circle">
-        </a>
-        <section class="comment-body m-b">
-            <header>
-                <a href="#">
-                    <strong>John smith</strong>
-                </a>
-                <label class="label bg-dark m-l-xs">Admin</label>
-                <span class="text-muted text-xs block m-t-xs"> 26 minutes ago </span>
-            </header>
-            <blockquote class="m-t">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                <small>Someone famous in 
-                    <cite title="Source Title">Source Title</cite>
-                </small>
-            </blockquote>
-            <div class="m-t-sm">Lorem ipsum dolor sit amet, consecteter adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</div>
-        </section>
-    </article>
-</section>
-  <h4 class="m-t-lg m-b">Leave a comment</h4>
-  <form>
-  		<div class="form-group pull-in clearfix">
-   		<div class="col-sm-6">
-       		<label>Your name</label>
-       			<input type="text" class="form-control" placeholder="Name">
-       	</div>
-       	<div class="col-sm-6">
-           	<label>Email</label>
-           		<input type="email" class="form-control" placeholder="Enter email">
-           	</div>
-       	</div>
-       	<div class="form-group">
-           	<label>Comment</label>
-           		<textarea class="form-control" rows="5" placeholder="Type your comment" style="max-width:1350px;" ></textarea>
-   	</div>
-   	<div class="form-group">
-       	<button type="submit" class="btn btn-success">Submit comment</button>
-   	</div>
-</form>
--->
-<section class="comment-list block">
-    <article id="comment-id-1" class="comment-item">
-        <a class="pull-left thumb-sm avatar">
-            <img src="${resource(dir:'images',file:'a1.png')}" class="img-circle" alt="...">
-            </a>
-            <span class="arrow left"></span>
-            <section class="comment-body panel panel-default">
-                <header class="panel-heading bg-white">
-                    <a href="#">John smith</a>
-                    <label class="label bg-info m-l-xs">Editor</label>
-                    <span class="text-muted m-l-sm pull-right">
-                        <i class="fa fa-clock-o"></i> Just now 
-                    </span>
-                </header>
-                <div class="panel-body">
-                    <div>Lorem ipsum dolor sit amet, consecteter adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</div>
-                    <div class="comment-action m-t-sm">
-                        <a href="#" data-toggle="class" class="btn btn-default btn-xs active">
-                            <i class="fa fa-star-o text-muted text"></i>
-                            <i class="fa fa-star text-danger text-active"></i> Like 
-                        </a>
-                        <a href="#comment-form" class="btn btn-default btn-xs">
-                            <i class="fa fa-mail-reply text-muted"></i> Reply 
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </article>
-        <!-- .comment-reply -->
-        <article id="comment-id-2" class="comment-item comment-reply">
-            <a class="pull-left thumb-sm avatar">
-                <img src="${resource(dir:'images',file:'a8.png')}" alt="...">
-                </a>
-                <span class="arrow left"></span>
-                <section class="comment-body panel panel-default text-sm">
-                    <div class="panel-body">
-                        <span class="text-muted m-l-sm pull-right">
-                            <i class="fa fa-clock-o"></i> 10m ago 
-                        </span>
-                        <a href="#">Mika Sam</a>
-                        <label class="label bg-dark m-l-xs">Admin</label> Report this comment is helpful 
-                    </div>
-                </section>
-            </article>
-            <!-- / .comment-reply -->
-            <article id="comment-id-3" class="comment-item">
-                <a class="pull-left thumb-sm avatar">
-                    <img src="${resource(dir:'images',file:'a9.png')}" alt="...">
-                    </a>
-                    <span class="arrow left"></span>
-                    <section class="comment-body panel panel-default">
-                        <header class="panel-heading">
-                            <a href="#">By me</a>
-                            <label class="label bg-success m-l-xs">User</label>
-                            <span class="text-muted m-l-sm pull-right">
-                                <i class="fa fa-clock-o"></i> 1h ago 
-                            </span>
-                        </header>
-                        <div class="panel-body">
-                            <div>This comment was posted by you.</div>
-                            <div class="comment-action m-t-sm">
-                                <a href="#comment-id-3" data-dismiss="alert" class="btn btn-default btn-xs">
-                                    <i class="fa fa-trash-o text-muted"></i> Remove 
-                                </a>
-                            </div>
-                        </div>
-                    </section>
-                </article>
-                <article id="comment-id-4" class="comment-item">
-                    <a class="pull-left thumb-sm avatar">
-                        <img src="${resource(dir:'images',file:'a5.png')}" alt="...">
-                        </a>
-                        <span class="arrow left"></span>
-                        <section class="comment-body panel panel-default">
-                            <header class="panel-heading">
-                                <a href="#">Peter</a>
-                                <label class="label bg-primary m-l-xs">Vip</label>
-                                <span class="text-muted m-l-sm pull-right">
-                                    <i class="fa fa-clock-o"></i> 2hs ago 
-                                </span>
-                            </header>
-                            <div class="panel-body">
-                                <blockquote>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                    <small>Someone famous in 
-                                        <cite title="Source Title">Source Title</cite>
-                                    </small>
-                                </blockquote>
-                                <div>Lorem ipsum dolor sit amet, consecteter adipiscing elit...</div>
-                                <div class="comment-action m-t-sm">
-                                    <a href="#" data-toggle="class" class="btn btn-default btn-xs">
-                                        <i class="fa fa-star-o text-muted text"></i>
-                                        <i class="fa fa-star text-danger text-active"></i> Like 
-                                    </a>
-                                    <a href="#comment-form" class="btn btn-default btn-xs">
-                                        <i class="fa fa-mail-reply text-muted"></i> Reply
-                                    </a>
-                                </div>
-                            </div>
-                        </section>
-                    </article>
+	<g:if test="${event.comments.size()>0}" >
+		<g:each in="${event.comments}" var="comment" >
+		    <article id="comment-id-${comment.id} }" class="comment-item">
+		        <a class="pull-left thumb-sm avatar">
+		            <avatar:gravatar email="${comment.user.email}" class="img-circle" />
+		            </a>
+		            <span class="arrow left"></span>
+		            <section class="comment-body panel panel-default">
+		                <header class="panel-heading bg-white">
+		                    <a href="#">${comment.user.username}</a>
+		                    <g:if test="${comment.user.getAuthorities().authority[0]=='ROLE_SUPERADMIN'}" >
+                   				&nbsp;&nbsp;<span class="label bg-primary">Super</span>
+                   			</g:if>
+                   			<g:elseif test="${comment.user.getAuthorities().authority[0]=='ROLE_ADMIN'}" >
+                   				&nbsp;&nbsp;<span class="label bg-success">Admin</span>
+                   			</g:elseif>
+                   			<g:elseif test="${comment.user.getAuthorities().authority[0]=='ROLE_MEMBER'}" >
+                   				&nbsp;&nbsp;<span class="label bg-info">Member</span>
+                   			</g:elseif>
+                   			<g:else test="${comment.user.getAuthorities().authority[0]=='ROLE_USER'}" >
+                   				&nbsp;&nbsp;<span class="label bg-warning">Guest</span>
+	                        </g:else>
+		                    <span class="text-muted m-l-sm pull-right">
+		                        <i class="fa fa-clock-o"></i> ${comment.modified} 
+		                    </span>
+		                </header>
+		               <div class="panel-body">
+		                    <div>${comment.description}</div>
+		                    <sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN,ROLE_MEMBER" >
+		                    	<g:if test="${ comment.user.getAuthorities().id[0]>session.currentUser.getAuthorities().id[0] || comment.user.id==session.currentUser.id }" >
+			                    	<!-- <div class="comment-action m-t-sm">
+			                        <a href="#" data-toggle="class" class="btn btn-default btn-xs active">
+			                            <i class="fa fa-star-o text-muted text"></i>
+			                            <i class="fa fa-star text-danger text-active"></i> Like 
+			                        </a>
+			                        <a href="#comment-form" class="btn btn-default btn-xs">
+			                            <i class="fa fa-mail-reply text-muted"></i> Reply 
+			                        </a>
+			                    	</div>-->
+		                            <g:if test="${comment.user.id==session.currentUser.id}" >
+		                            	<div class="comment-action m-t-sm">
+		                                	<g:link controller="Comment" action="deleteMines" params="[id:"${comment.id}",event:"${comment.event.id}",controllerN:"${controllerName}",actionN:"${actionName}"]" data-dismiss="alert" class="btn btn-default btn-xs">
+		                                    	<i class="fa fa-trash-o text-muted"></i> Remove 
+		                                	</g:link>
+		                            	</div>
+		                            </g:if>
+		                            <g:else>
+		                            	<div class="comment-action m-t-sm">
+		                                	<g:link controller="Comment" action="delete" params="[id:"${comment.id}",event:"${comment.event.id}",controllerN:"${controllerName}",actionN:"${actionName}"]" data-dismiss="alert" class="btn btn-default btn-xs">
+		                                    	<i class="fa fa-trash-o text-muted"></i> Remove 
+		                                	</g:link>
+		                            	</div>
+		                            </g:else>
+	                            </g:if>
+		                    </sec:ifAnyGranted>
+		                </div>
+		            </section>
+		        </article>
+		</g:each>
+	</g:if>
+</g:if>
                     <!-- comment form -->
-                    <article class="comment-item media" id="comment-form">
-                        <a class="pull-left thumb-sm avatar">
-                            <img src="${resource(dir:'images',file:'a6.png')}" alt="...">
-                            </a>
-                            <section class="media-body">
-                                <form action="index.html" class="m-b-none">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Input your comment here">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button">POST</button>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </section>
-                            </article>
-                        </section>
-                        <br><br>
+<g:if test="${event.canComment==true}" >
+	                    <article class="comment-item media" id="comment-form">
+	                        <a class="pull-left thumb-sm avatar">
+	                            <avatar:gravatar email="${session.currentUser.email}" class="img-circle" />
+	                            </a>
+	                            <section class="media-body">
+	                                <g:form method="POST" class="m-b-none" role="form" url="[action:'create',controller:'Comment']" >
+	                                	<input type="hidden" id="controllerN" name="controller" value="${controllerName}" />
+	                                    <input type="hidden" id="actionN" name="action" value="${actionName}" />
+	                                    <input type="hidden" id="event" name="event" value="${event.id}" />
+	                                    <div class="input-group">
+	                                        <input type="text" class="form-control" placeholder="Input your comment here" id="description" name="description" value="" >
+	                                            <span class="input-group-btn">
+	                                                <button class="btn btn-primary" type="submit">POST</button>
+	                                            </span>
+	                                        </div>
+	                                    </g:form>
+	                                </section>
+	                            </article>
+</g:if>
+</section>
+<br><br>
+</sec:ifLoggedIn>
 </div>
 </div>
 <div class="col-sm-3">
+<!--
 <h5 class="font-bold">Categories</h5>
 <ul class="list-group">
     <li class="list-group-item">
@@ -265,6 +161,7 @@
     <a href="#" class="label bg-primary">Theme</a>
     <a href="#" class="label bg-primary">Wordpress</a>
 </div>
+-->
 <!-- 
 <h5 class="font-bold">Recent Posts</h5>
 <div>

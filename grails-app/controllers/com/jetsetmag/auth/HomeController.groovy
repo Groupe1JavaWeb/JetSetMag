@@ -1,14 +1,16 @@
 package com.jetsetmag.auth
 
 import com.jetsetmag.hangout.Event
+import com.jetsetmag.hangout.Comment
 import com.jetsetmag.auth.User
+
 
 import grails.plugin.springsecurity.SecurityConfigType
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 
 
-@Secured(['permitAll','IS_AUTHENTICATED'])
+@Secured(['permitAll'])
 class HomeController {
 
 	/**
@@ -29,7 +31,7 @@ class HomeController {
 			}
 		}
 		
-		render view : 'index',model : [usersCount:User.count(),eventsCount:Event.count()] // Session currentUser is ON
+		render view : 'index',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)] // Session currentUser is ON
 	}
 
 	def login = {
@@ -128,7 +130,7 @@ class HomeController {
 		flash.success=successMsg
 		flash.warning=warningMsg
 
-		redirect(controller:'Home',action:'index',model : [usersCount:User.count(),eventsCount:Event.count(),resU:resU,resE:resE])
+		redirect(controller:'Home',action:'index',model : [commentsCount:Comment.list(),usersCount:User.count(),eventsCount:Event.count(),resU:resU,resE:resE])
 		
 	}
 

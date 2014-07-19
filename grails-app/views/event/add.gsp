@@ -8,10 +8,10 @@
 	</head>
 	<body>
 		<div class="m-b-md">
-			<h3 class="m-b-none">Event Management</h3>
+			<h3 class="m-b-none">Event/News Management</h3>
 		</div>
 		<section class="panel panel-default">
-		    <header class="panel-heading font-bold">New Event </header>
+		    <header class="panel-heading font-bold">New Event/News </header>
 		    <div class="panel-body">
 		        <form class="form-horizontal" method="POST" url="[controller:'Event',action:'create']" enctype="multipart/form-data" autocomplete="off" id="eventAdd" name="eventAdd" role="form" onSubmit="javascript:return checkEventForm();" >
 		                <input type="hidden" name="description" value="" />
@@ -19,15 +19,45 @@
 		                    <label class="col-sm-2 control-label">Title</label>
 		                    <div class="col-sm-10">
 		                        <input type="text" class="form-control" name="title" id="title" required >
-		                            <span class="help-block m-b-none">Go ahead & pick a nice title for your next event !</span>
+		                            <span class="help-block m-b-none">Go ahead & pick a nice title for your next event/news !</span>
 		                        </div>
 		                    </div>
 		                </div>
 		                <div class="line line-dashed b-b line-lg pull-in"></div>
-		                <div class="form-group">                                                                                                                                                                                                                                                       <label class="col-sm-2 control-label">Started</label>
+		                <div class="form-group"><label class="col-sm-2 control-label">Event Ready ?</label>
 			                <div class="col-sm-10">
 			                    <label class="switch">
-			                        <input type="checkbox" id="enabled" name="enabled" checked="true" >
+			                        <input type="checkbox" id="enabled" name="enabled" >
+			                            <span></span>
+			                        </label>
+			                    </div>
+			                </div>
+			            </div>
+		                <div class="line line-dashed b-b line-lg pull-in"></div>
+		                <div class="form-group"><label class="col-sm-2 control-label">Is News ?</label>
+			                <div class="col-sm-10">
+			                    <label class="switch">
+			                        <input type="checkbox" id="IsNews" name="IsNews" checked="true" >
+			                            <span></span>
+			                        </label>
+			                    </div>
+			                </div>
+			            </div>
+		                <div class="line line-dashed b-b line-lg pull-in"></div>
+		                <div class="form-group"><label class="col-sm-2 control-label">Can Comment ?</label>
+			                <div class="col-sm-10">
+			                    <label class="switch">
+			                        <input type="checkbox" id="canComment" name="canComment" checked="true" >
+			                            <span></span>
+			                        </label>
+			                    </div>
+			                </div>
+			            </div>
+		                <div class="line line-dashed b-b line-lg pull-in"></div>
+		                <div class="form-group"><label class="col-sm-2 control-label">Show Comments ?</label>
+			                <div class="col-sm-10">
+			                    <label class="switch">
+			                        <input type="checkbox" id="showComments" name="showComments" checked="true" >
 			                            <span></span>
 			                        </label>
 			                    </div>
@@ -213,7 +243,7 @@
 		                  <br><br>
 		                  <div class="line line-dashed b-b line-lg pull-in"></div>-->
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Event's Cover</label>
+								<label class="col-sm-2 control-label">Event/News's Cover</label>
 								<div class="col-sm-10">
 									<input type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-primary" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;" name="cover" id="cover" value="" >
 							    </div>

@@ -4,20 +4,21 @@ import com.jetsetmag.auth.User
 import com.jetsetmag.auth.UserRole
 import grails.plugin.springsecurity.annotation.Secured
 import com.jetsetmag.hangout.Event
+import com.jetsetmag.hangout.Comment
 
-@Secured(['IS_AUTHENTICATED']) // @Secured(['IS_AUTHENTICATED_FULLY']) ==> with remember_me ON
+@Secured(['permitAll']) // @Secured(['IS_AUTHENTICATED_FULLY']) ==> with remember_me ON
 class UserController {
 	
     @Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def index() {
-		render view : 'index',model : [usersCount:User.count(),eventsCount:Event.count()]
+		render view : 'index',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
 	}
 	
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def list() {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.maxSteps = Math.min(params.maxSteps ? params.int('maxSteps') : 0, 10)
-		render view: 'list', model : [usersList: User.list(params), usersCount: User.count(),usersCount:User.count(),eventsCount:Event.count()]
+		render view: 'list', model : [usersList: User.list(params), usersCount: User.count(),commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
 	}
 	
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
@@ -52,23 +53,35 @@ class UserController {
 		flash.success=successMsg
 		flash.warning=warningMsg
 		
-		render view : 'list',model : [usersCount:User.count(),eventsCount:Event.count(),resU:resU]
+		render view : 'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true),resU:resU]
 		
 	}
 
-	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','IS_AUTHENTICATED']) // Normallement ya que le user lui même qui peut modifier ses propres détails ;) ===> 'IS_AUTHENTICATED'
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN']) // Normallement ya que le user lui même qui peut modifier ses propres détails ;) ===> 'IS_AUTHENTICATED'
 	def show() {
 		def user = User.findById(params.id)
 		if(user){
-			render view : 'show',model :[user:user,usersCount:User.count(),eventsCount:Event.count()]
+			render view : 'show',model :[user:user,commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
 		}
 		else{
-			flash.danger = "No user was found to show !"+params.id
-			redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+			flash.danger = "No user was found to show !"
+			redirect(controller:'User',action:'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
 		}
 	}
 
-	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN','IS_AUTHENTICATED']) // Normallement ya que le user lui même qui peut modifier ses propres détails ;) ===> 'IS_AUTHENTICATED'
+	@Secured(['permitAll'])
+	def showme() {
+		def user = User.findById(session.currentUser.id)
+		if(user){
+			render view : 'show',model :[user:user,commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
+		}
+		else{
+			flash.danger = "Your profile was not found to show it!"
+			redirect(controller:'Home',action:'index',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
+		}
+	}
+	
+	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN']) // Normallement ya que le user lui même qui peut modifier ses propres détails ;) ===> 'IS_AUTHENTICATED'
 	def edit() {
 		if(request.post){
 			if(params.enabled=="on"){params.enabled=true;}else{params.enabled=false;}
@@ -86,27 +99,39 @@ class UserController {
 				user.accountLocked=params.accountLocked
 				if(user.save(flush:true)){ // flush:true
 					flash.message = " The user was successfully updated !"
-					redirect(controller:'User',action:'show',model : [id : params.id, usersCount:User.count(),eventsCount:Event.count()] )
+					redirect(controller:'User',action:'show',model : [id : params.id, commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)] )
 				}else{
 					flash.danger = "Unable to update this user !"
-					redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+					redirect(controller:'User',action:'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
 				}
 			}else{
 				flash.danger = "No user was found to update !"
-				redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+				redirect(controller:'User',action:'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
 			}
 		}else{
 			def user = user.findById(params.id) // session.currentUser.id
 			if(user){
-				render view : 'edit',model :[user:user,usersCount:User.count(),eventsCount:Event.count()]
+				render view : 'edit',model :[user:user,commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
 			}
 			else{
 				flash.danger = "No user was found to show !"
-				redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+				redirect(controller:'User',action:'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
 			}
 		}
 	}
-	
+
+	@Secured(['permitAll'])
+	def editme() {
+		def user = user.findById(session.currentUser.id) // session.currentUser.id
+		if(user){
+			render view : 'edit',model :[user:user,commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
+		}
+		else{
+			flash.danger = "Your profile was not found to show it!"
+			redirect(controller:'Home',action:'index',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
+		}
+	}
+
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
 	def delete() {
 		def dangerMsg = ""
@@ -139,7 +164,7 @@ class UserController {
 		flash.success=successMsg
 		flash.warning=warningMsg
 		
-		redirect(controller:'User',action:'list',model : [usersCount:User.count(),eventsCount:Event.count()])
+		redirect(controller:'User',action:'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
 	}
 
 	@Secured(['ROLE_SUPERADMIN','ROLE_ADMIN'])
@@ -236,11 +261,11 @@ class UserController {
 		
 		    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
 		    redirect(action: "show", id: userInstance.id)*/
-			redirect(action: "list",model : [usersCount:User.count(),eventsCount:Event.count()])
+			redirect(action: "list",model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)])
 		}else{
-			render view : 'create',model : [usersCount:User.count(),eventsCount:Event.count()]
+			render view : 'create',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
 		}
-		render view : 'index',model : [usersCount:User.count(),eventsCount:Event.count()]
+		render view : 'index',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true)]
 	}
 
 }

@@ -143,30 +143,33 @@
 <ul class="nav bg clearfix">
 <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> @7 Mag </li>
 <li>
-	<g:link controller="Home" action="index" >
+	<g:link controller="Event" action="index" params="[isNews:true]" >
 		<i class="icon-globe icon text-success"></i>
+		<b class="badge bg-success pull-right">${newsCount}</b>
 		<span class="font-bold">7News</span>
 	</g:link>
 </li>
 <li>
-	<g:link controller="Event" action="index" >
+	<g:link controller="Event" action="index" params="[isNews:false]" >
 		<i class="icon-book-open icon text-primary-lter"></i>
 		<b class="badge bg-danger pull-right">${eventsCount}</b>
 		<span class="font-bold">7Events</span>
 	</g:link>
 </li>
-<li>
+<!--<li>
 	<a href="${request.contextPath}">
 		<i class="icon-music-tone-alt icon text-info"></i>
-		<span class="font-bold">7Audio</span>
+		<b class="badge bg-info pull-right">0</b>
+		<span class="font-bold">7Songs</span>
 	</a>
 </li>
 <li>
 	<a href="${request.contextPath}" >
 		<i class="icon-social-youtube icon text-primary"></i>
-		<span class="font-bold">7Video</span>
+		<b class="badge bg-warning pull-right">0</b>
+		<span class="font-bold">7Videos</span>
 	</a>
-</li>
+</li>-->
 <li class="m-b hidden-nav-xs"></li>
 </ul>
 <sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN,ROLE_MEMBER" >
@@ -179,7 +182,7 @@
 	                <i class="fa fa-angle-down text-active"></i>
 	            </span>
 	            <i class="icon-grid icon"></i>
-	            <span>Gestion</span>
+	            <span>Management</span>
 	        </a>
 	        <ul class="nav dk text-sm">
 	        	<sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN" >
@@ -192,26 +195,40 @@
 	            </li>
 	            </sec:ifAnyGranted>
 	            <li>
-	                <a href="#" class="auto">
-	                	<b class="badge bg-info pull-right">369</b>
+	                <g:link controller="Event" action="listN" class="auto" >
+	                	<b class="badge bg-default pull-right">${newsCount}</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
 	                    <span>News</span>
-	                </a>
+	                </g:link>
 	            </li>
 	            <li>
-	                <g:link controller="Event" action="list" class="auto" >
+	                <g:link controller="Event" action="listE" class="auto" >
 	                	<b class="badge bg-danger pull-right">${eventsCount}</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
 	                    <span>Events</span>
 	                </g:link>
 	            </li>
 	            <li>
-	                <a href="#" class="auto">
-	                	<b class="badge pull-right">0</b>
+	                <g:link controller="Comment" action="list" class="auto" >
+	                	<b class="badge bg-dark pull-right">${commentsCount}</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
-	                    <span>Medias</span>
+	                    <span>Comments</span>
+	                </g:link>
+	            </li>
+	            <!--<li>
+	                <a href="#" class="auto">
+	                	<b class="badge bg-info pull-right">0</b>
+	                    <i class="fa fa-angle-right text-xs"></i>
+	                    <span>Songs</span>
 	                </a>
 	            </li>
+	            <li>
+	                <a href="#" class="auto">
+	                	<b class="badge bg-warning pull-right">0</b>
+	                    <i class="fa fa-angle-right text-xs"></i>
+	                    <span>Videos</span>
+	                </a>
+	            </li>-->
 	        </ul>
 	    </li>
 	</ul>
