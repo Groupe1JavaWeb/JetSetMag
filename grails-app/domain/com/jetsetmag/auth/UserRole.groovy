@@ -89,6 +89,8 @@ class UserRole implements Serializable {
 	  table 'j7m_users_roles'
       id composite: ['role', 'user']
       version false
+	  user lazy : false
+	  role lazy : false
    }
 
 }

@@ -112,6 +112,16 @@
 			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path=".link_to_grails_plugins/facebook-comments-1.0/grails-app/taglib">
+		<attributes>
+			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path=".link_to_grails_plugins/facebook-comments-1.0/grails-app/views">
+		<attributes>
+			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path=".link_to_grails_plugins/hibernate4-4.3.5.3/src/java">
 		<attributes>
 			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>

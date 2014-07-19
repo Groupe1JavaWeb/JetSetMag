@@ -16,6 +16,7 @@
 	<![endif]-->
 </head>
 <body class="">
+<fb:initFbCommentsJS appId="596783563767537" />
 <section class="vbox">
 <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
 <div class="navbar-header aside bg-info nav-xs">
@@ -156,7 +157,7 @@
 		<span class="font-bold">7Events</span>
 	</g:link>
 </li>
-<!--<li>
+<li>
 	<a href="${request.contextPath}">
 		<i class="icon-music-tone-alt icon text-info"></i>
 		<b class="badge bg-info pull-right">0</b>
@@ -169,7 +170,7 @@
 		<b class="badge bg-warning pull-right">0</b>
 		<span class="font-bold">7Videos</span>
 	</a>
-</li>-->
+</li>
 <li class="m-b hidden-nav-xs"></li>
 </ul>
 <sec:ifAnyGranted roles="ROLE_SUPERADMIN,ROLE_ADMIN,ROLE_MEMBER" >
@@ -215,7 +216,7 @@
 	                    <span>Comments</span>
 	                </g:link>
 	            </li>
-	            <!--<li>
+	            <li>
 	                <a href="#" class="auto">
 	                	<b class="badge bg-info pull-right">0</b>
 	                    <i class="fa fa-angle-right text-xs"></i>
@@ -228,7 +229,7 @@
 	                    <i class="fa fa-angle-right text-xs"></i>
 	                    <span>Videos</span>
 	                </a>
-	            </li>-->
+	            </li>
 	        </ul>
 	    </li>
 	</ul>

@@ -38,6 +38,9 @@ grails.mime.types = [ // the first one is the default format
 grails.views.default.codec = "html" // escape HTML 
 //grails.views.default.codec = "none" // show HTML
 
+// Grails disable GSP cache
+grails.gsp.enable.reload=true
+
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'

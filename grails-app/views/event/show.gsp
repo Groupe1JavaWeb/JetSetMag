@@ -4,6 +4,7 @@
 		<meta name="layout" content="main"/>
 	</head>
 	<body>
+	<fb:initFbCommentsJS appId="596783563767537" />
 	<input type="hidden" name="id" id="id" value="${event.id}" />
 <div class="row">
 <div class="col-sm-9">
@@ -129,6 +130,7 @@
 </div>
 </div>
 <div class="col-sm-3">
+<fb:comments width="100%" />
 <!--
 <h5 class="font-bold">Categories</h5>
 <ul class="list-group">
