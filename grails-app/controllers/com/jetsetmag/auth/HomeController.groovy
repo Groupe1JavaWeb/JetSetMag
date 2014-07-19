@@ -37,7 +37,7 @@ class HomeController {
 	def login = {
 		if ( session.currentUser ) {
 			redirect uri: config.successHandler.defaultTargetUrl
-			//redirect(controller:'home',action:'index')
+			session.currentUser.lastConnection=new Date()
 			return
 		}
 

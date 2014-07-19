@@ -255,6 +255,9 @@ class EventController {
 			def eventTo = Event.findById(params.which)
 			if(eventTo){
 				eventTo.canComment = !eventTo.canComment
+				if(eventTo.canComment==true){
+					eventTo.showComments = true
+				}
 				if(eventTo.save(flush:true)){
 					return true
 				}else{
@@ -274,6 +277,9 @@ class EventController {
 			def eventTo = Event.findById(params.which)
 			if(eventTo){
 				eventTo.showComments = !eventTo.showComments
+				if(eventTo.showComments==false){
+					eventTo.canComment = false
+				}
 				if(eventTo.save(flush:true)){
 					return true
 				}else{
@@ -289,7 +295,6 @@ class EventController {
 
 	@Secured(['permitAll'])
 	def search() {
-
 		def infoMsg = ""
 		def dangerMsg = ""
 		def successMsg = ""
@@ -313,14 +318,11 @@ class EventController {
 			}
 			
 		}
-		
 		flash.info=infoMsg
 		flash.danger=dangerMsg
 		flash.success=successMsg
 		flash.warning=warningMsg
-		
 		render view : 'list',model : [commentsCount:Comment.count(),usersCount:User.count(),eventsCount:Event.countByisNews(false),newsCount:Event.countByisNews(true),resE:resE]
-
 	}
 
 }

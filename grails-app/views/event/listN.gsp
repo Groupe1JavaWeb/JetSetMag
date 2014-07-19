@@ -9,7 +9,7 @@
 		<div class="m-b-md">
 			<h3 class="m-b-none">Events/News Management</h3>
 		</div>
-        <g:if test="${eventsCount>0}" >
+        <g:if test="${eventsCount>0 || newsCount>0}" >
 		<section class="panel panel-default">
 		    <header class="panel-heading"> Events/News List </header>
 		    	<div class="row wrapper">
@@ -20,7 +20,7 @@
 		                     <option value="delete" class="OptDelete" >Delete</option>
 		                 </select>
 		                 <button class="btn btn-sm btn-default" onClick="applyAction();" id="applyAction" >Apply</button>
-		                 <g:link class="btn btn-info btn-sm" controller='Event' action='create' >New Event/News</g:link>
+		                 <g:link class="btn btn-info btn-sm" controller='Event' action='create' >New News</g:link>
 			        </div>
 			        <div class="col-sm-4 m-b-xs">
 						<div class="btn-group" data-toggle="buttons">
@@ -229,13 +229,13 @@
 	                                 		<td>${event.endDate.format("yyyy/MM/dd")}</td>
 	                                  		<td>
 	                                       		<g:if test="${event.enabled==true}">
-	                                       			<a href="#" class="active" data-toggle="class" onClick="changeState('${event.id}')" >
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeState(${event.id})" >
 	                                       				<i class="fa fa-check text-success text-active"></i>
 	                                       				<i class="fa fa-times text-danger text"></i>
 	                                       			</a>
 	                                       		</g:if>
 	                                       		<g:else>
-													<a href="#" data-toggle="class" onClick="changeState('${event.id}')" >
+													<a href="#" data-toggle="class" onClick="changeState(${event.id})" >
 														<i class="fa fa-check text-success text-active"></i>
 														<i class="fa fa-times text-danger text"></i>
 													</a>
@@ -243,13 +243,13 @@
 	                                    	</td>
 	                                  		<td>
 	                                       		<g:if test="${event.isNews==true}">
-	                                       			<a href="#" class="active" data-toggle="class" onClick="changeStateTaggedAs('${event.id}')" >
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeStateTaggedAs(${event.id})" >
 	                                       				<i class="fa fa-check text-success text-active"></i>
 	                                       				<i class="fa fa-times text-danger text"></i>
 	                                       			</a>
 	                                       		</g:if>
 	                                       		<g:else>
-													<a href="#" data-toggle="class" onClick="changeStateTaggedAs('${event.id}')" >
+													<a href="#" data-toggle="class" onClick="changeStateTaggedAs(${event.id})" >
 														<i class="fa fa-check text-success text-active"></i>
 														<i class="fa fa-times text-danger text"></i>
 													</a>
@@ -257,13 +257,13 @@
 	                                    	</td>
 	                                  		<td>
 	                                       		<g:if test="${event.canComment==true}">
-	                                       			<a href="#" class="active" data-toggle="class" onClick="changeStateCanComment('${event.id}')" >
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeStateCanComment(${event.id})" >
 	                                       				<i class="fa fa-check text-success text-active"></i>
 	                                       				<i class="fa fa-times text-danger text"></i>
 	                                       			</a>
 	                                       		</g:if>
 	                                       		<g:else>
-													<a href="#" data-toggle="class" onClick="changeStateCanComment('${event.id}')" >
+													<a href="#" data-toggle="class" onClick="changeStateCanComment(${event.id})" >
 														<i class="fa fa-check text-success text-active"></i>
 														<i class="fa fa-times text-danger text"></i>
 													</a>
@@ -271,13 +271,13 @@
 	                                    	</td>
 	                                  		<td>
 	                                       		<g:if test="${event.showComments==true}">
-	                                       			<a href="#" class="active" data-toggle="class" onClick="changeStateShowComments('${event.id}')" >
+	                                       			<a href="#" class="active" data-toggle="class" onClick="changeStateShowComments(${event.id})" >
 	                                       				<i class="fa fa-check text-success text-active"></i>
 	                                       				<i class="fa fa-times text-danger text"></i>
 	                                       			</a>
 	                                       		</g:if>
 	                                       		<g:else>
-													<a href="#" data-toggle="class" onClick="changeStateShowComments('${event.id}')" >
+													<a href="#" data-toggle="class" onClick="changeStateShowComments(${event.id})" >
 														<i class="fa fa-check text-success text-active"></i>
 														<i class="fa fa-times text-danger text"></i>
 													</a>
@@ -369,7 +369,7 @@
 					});
 				}
 			}
-			function changeStateTaggedAs(wich){
+			function changeStateTaggedAs(which){
 				if(which>0){
 					$.post( "taggedAs", { which: which }, function( data ) {
 						console.log( "success" );
@@ -378,7 +378,7 @@
 					});
 				}
 			}
-			function changeStateCanComment(wich){
+			function changeStateCanComment(which){
 				if(which>0){
 					$.post( "canComment", { which: which }, function( data ) {
 						console.log( "success" );
@@ -387,7 +387,7 @@
 					});
 				}
 			}
-			function changeStateShowComments(wich){
+			function changeStateShowComments(which){
 				if(which>0){
 					$.post( "showComments", { which: which }, function( data ) {
 						console.log( "success" );

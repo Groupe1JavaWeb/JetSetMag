@@ -27,8 +27,8 @@
 </div>
 <div class="line line-lg"></div>
 <div class="text-muted">
-<i class="fa fa-user icon-muted"></i> by 
-<a href="#" class="m-r-sm">${event.user.username}</a>
+<i class="fa fa-user icon-muted"></i> by&nbsp;
+<g:link controller="User" action="show" params="[id:"${event.user.id}"]" class="m-r-sm" ><b>${event.user.username}</b></g:link>
 <i class="fa fa-clock-o icon-muted"></i> Created : ${event.created}&nbsp;&nbsp;
 <i class="fa fa-clock-o icon-muted"></i> Modified : ${event.modified}
 <i class="fa fa-clock-o icon-muted"></i> Tagged As : <g:if test="${event.isNews==true}" ><span class="label bg-info">News</span></g:if><g:else><span class="label bg-primary">Event</span></g:else>
@@ -51,7 +51,7 @@
 		            <span class="arrow left"></span>
 		            <section class="comment-body panel panel-default">
 		                <header class="panel-heading bg-white">
-		                    <a href="#">${comment.user.username}</a>
+		                    <g:link controller="User" action="show" params="[id:"${comment.user.id}"]" ><b>${comment.user.username}</b></g:link>
 		                    <g:if test="${comment.user.getAuthorities().authority[0]=='ROLE_SUPERADMIN'}" >
                    				&nbsp;&nbsp;<span class="label bg-primary">Super</span>
                    			</g:if>

@@ -21,7 +21,8 @@ class User {
 	boolean enabled = false
 	boolean accountExpired = false
 	boolean accountLocked = false
-	boolean passwordExpired = false	
+	boolean passwordExpired = false
+	String about
 	
 	static transients = ['springSecurityService']
 	static hasMany = [ events: Event,comments: Comment]
@@ -32,6 +33,7 @@ class User {
 		firstName	blank: false, nullable: false
 		lastName	blank: false, nullable: false
 		email		email: true, blank: false, unique: true
+		about		nullable:true	
     }
 
 	Set<Role> getAuthorities() { // The getAuthorities() method is analagous to defining static hasMany = [authorities: Authority]
@@ -58,6 +60,7 @@ class User {
 	static mapping = {
 		table 'j7m_users'
 		password column: '`password`'
+		about type: 'text'
 		events cascade:'all-delete-orphan'
 		comments cascade:'all-delete-orphan'
 	}

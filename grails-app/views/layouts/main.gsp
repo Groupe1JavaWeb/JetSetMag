@@ -287,7 +287,7 @@
 <section class="hbox stretch">
 <section>
 <section class="vbox">
-<g:if test="${controllerName=="event" && ( actionName=="index" || actionName=="" )}" >
+<g:if test="${ (controllerName=="event" && ( actionName=="index" || actionName=="" )) || (controllerName=="user" && actionName=="show" ) }" >
 	<section class="scrollable">
 </g:if>
 <g:else>

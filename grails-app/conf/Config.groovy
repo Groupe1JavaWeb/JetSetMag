@@ -39,7 +39,7 @@ grails.views.default.codec = "html" // escape HTML
 //grails.views.default.codec = "none" // show HTML
 
 // Grails disable GSP cache
-grails.gsp.enable.reload=true
+grails.gsp.enable.reload=true 
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
@@ -81,7 +81,8 @@ grails.web.disable.multipart=false
 grails.exceptionresolver.params.exclude = ['password']
 
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
-grails.hibernate.cache.queries = false
+//grails.hibernate.cache.queries = false // for ===> compile ":cache-headers:1.1.7" // not 100% working
+grails.cache.enabled=false // for ===> compile ":cache:1.1.7"
 
 // configure passing transaction's read-only attribute to Hibernate session, queries and criterias
 // set "singleSession = false" OSIV mode in hibernate configuration after enabling
